@@ -1,0 +1,15 @@
+package mingds.record;
+
+import mingds.record.base.AsciiRecord;
+import mingds.record.base.RecordType;
+
+public class StrName extends AsciiRecord {
+    public StrName(byte[] bytes){
+        super(bytes);
+    }
+
+    @Override
+    public RecordType getRecordType() {
+        return RecordType.STRNAME;
+    }
+}
