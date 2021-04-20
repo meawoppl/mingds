@@ -8,7 +8,7 @@ public class BgnStr extends BgnLib {
         return RecordType.BGNSTR;
     }
 
-    public BgnStr(byte[] bytes){
+    public BgnStr(byte[] bytes) {
         super(bytes);
     }
 }

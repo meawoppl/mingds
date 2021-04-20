@@ -1,11 +1,10 @@
 package mingds.record.base;
 
 import com.google.common.base.Preconditions;
-import mingds.GdsiiParser;
-import org.antlr.v4.runtime.CommonToken;
-
 import java.util.HashMap;
 import java.util.Map;
+import mingds.GdsiiParser;
+import org.antlr.v4.runtime.CommonToken;
 
 public enum RecordType {
     NULL(-0x01),
@@ -90,7 +89,8 @@ public enum RecordType {
     CONTACT(0x45);
 
     private final int code;
-    RecordType(int code){
+
+    RecordType(int code) {
         this.code = code;
     }
 
@@ -117,19 +117,20 @@ public enum RecordType {
         }
     }
 
-    public static RecordType forID(int id){
+    public static RecordType forID(int id) {
         Preconditions.checkArgument(lookupByCode.containsKey(id), "No RecordType for id:" + id);
         return lookupByCode.get(id);
     }
+
     public static RecordType forName(String name) {
         Preconditions.checkArgument(lookupByName.containsKey(name), "No key for: '" + name + "'");
-        return  lookupByName.get(name);
+        return lookupByName.get(name);
     }
 
     public CommonToken getParseToken() {
-        Preconditions.checkArgument(recordToParseToTokenID.containsKey(this), "Missing TokenID for %s", this);
+        Preconditions.checkArgument(
+                recordToParseToTokenID.containsKey(this), "Missing TokenID for %s", this);
         int tokenID = recordToParseToTokenID.get(this);
         return new CommonToken(tokenID, this.name());
-
     }
 }

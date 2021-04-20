@@ -5,7 +5,8 @@ import mingds.record.base.RecordType;
 
 public class Unknown extends RecordBase<Void> {
     private final int reportedType;
-    public Unknown(byte[] bytes, int reportedType){
+
+    public Unknown(byte[] bytes, int reportedType) {
         this.reportedType = reportedType;
         this.setBytes(bytes);
     }

@@ -1,26 +1,21 @@
 package mingds.render;
 
 import com.google.common.base.Preconditions;
-import mingds.record.XY;
-import mingds.record.base.RecordBase;
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
-
-import javax.imageio.ImageIO;
-import javax.swing.Box;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.DoubleSummaryStatistics;
-import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import javax.imageio.ImageIO;
+import mingds.record.XY;
+import mingds.record.base.RecordBase;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class Render {
     private final int width;
@@ -29,7 +24,8 @@ public class Render {
     private final Vector2D upper;
 
     private final BufferedImage bi;
-    public Render(Vector2D lower, Vector2D upper, int size){
+
+    public Render(Vector2D lower, Vector2D upper, int size) {
         this.lower = lower;
         this.upper = upper;
         this.width = size;
@@ -39,27 +35,34 @@ public class Render {
 
         // Black background fill call
         this.doGraphics(
-            g -> {
-                g.setColor(Color.BLACK);
-                g.fillRect(0, 0, this.bi.getWidth(), this.bi.getHeight());
-            });
+                g -> {
+                    g.setColor(Color.BLACK);
+                    g.fillRect(0, 0, this.bi.getWidth(), this.bi.getHeight());
+                });
     }
 
-    public static Render forRecords(List<? extends RecordBase<?>> records, int size){
-        List<XY> xyRecs = records.stream().filter(r -> r instanceof XY).map(r -> (XY) r).collect(Collectors.toList());
+    public static Render forRecords(List<? extends RecordBase<?>> records, int size) {
+        List<XY> xyRecs =
+                records.stream()
+                        .filter(r -> r instanceof XY)
+                        .map(r -> (XY) r)
+                        .collect(Collectors.toList());
         List<Vector2D> xyVecs = xyRecs.stream().flatMap(XY::getXYs).collect(Collectors.toList());
-        DoubleSummaryStatistics xss = xyVecs.stream().mapToDouble(Vector2D::getX).summaryStatistics();
-        DoubleSummaryStatistics yss = xyVecs.stream().mapToDouble(Vector2D::getY).summaryStatistics();
+        DoubleSummaryStatistics xss =
+                xyVecs.stream().mapToDouble(Vector2D::getX).summaryStatistics();
+        DoubleSummaryStatistics yss =
+                xyVecs.stream().mapToDouble(Vector2D::getY).summaryStatistics();
 
         Vector2D lower = new Vector2D(xss.getMin(), yss.getMin());
         Vector2D upper = new Vector2D(xss.getMax(), yss.getMax());
 
         Render render = new Render(lower, upper, size);
 
-        xyRecs.forEach(xy->{
-            System.out.println(xy.getXYs().count());
-            render.strokeSegments(xy.getXYs().collect(Collectors.toList()), Color.BLUE);
-        });
+        xyRecs.forEach(
+                xy -> {
+                    System.out.println(xy.getXYs().count());
+                    render.strokeSegments(xy.getXYs().collect(Collectors.toList()), Color.BLUE);
+                });
 
         return render;
     }
@@ -72,7 +75,7 @@ public class Render {
         Graphics2D g = this.bi.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(
-            RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         try {
             callable.accept(g);
         } finally {
@@ -102,14 +105,14 @@ public class Render {
 
     public void strokeSegments(List<Vector2D> points, Color color) {
         doGraphics(
-            (g) -> {
-                g.setColor(color);
-                for (int i = 0; i < points.size() - 1; i++) {
-                    int[] a = mapPointToPix(points.get(i));
-                    int[] b = mapPointToPix(points.get(i+1));
-                    g.drawLine(a[0], a[1], b[0], b[1]);
-                }
-            });
+                (g) -> {
+                    g.setColor(color);
+                    for (int i = 0; i < points.size() - 1; i++) {
+                        int[] a = mapPointToPix(points.get(i));
+                        int[] b = mapPointToPix(points.get(i + 1));
+                        g.drawLine(a[0], a[1], b[0], b[1]);
+                    }
+                });
     }
 
     /**
@@ -119,9 +122,9 @@ public class Render {
      */
     public void saveAsPNG(Path path) {
         Preconditions.checkArgument(
-            path.toString().endsWith(".png"),
-            "Must have a .png extension, got %s",
-            path.toString());
+                path.toString().endsWith(".png"),
+                "Must have a .png extension, got %s",
+                path.toString());
         File outputFile = path.toFile();
 
         try {

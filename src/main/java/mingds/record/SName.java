@@ -6,7 +6,7 @@ import mingds.record.base.RecordType;
 
 public class SName extends AsciiRecord {
 
-    public SName(byte[] bytes){
+    public SName(byte[] bytes) {
         super(bytes);
         Preconditions.checkArgument(bytes.length < 32);
     }

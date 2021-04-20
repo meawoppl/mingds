@@ -5,7 +5,7 @@ import mingds.record.base.RecordType;
 import mingds.record.base.ShortRecord;
 
 public class STrans extends ShortRecord {
-    public STrans(byte[] bytes){
+    public STrans(byte[] bytes) {
         super(bytes);
         Preconditions.checkArgument(bytes.length == 2);
     }

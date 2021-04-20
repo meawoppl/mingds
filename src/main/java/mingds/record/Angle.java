@@ -5,11 +5,10 @@ import mingds.record.base.DoubleRecord;
 import mingds.record.base.RecordType;
 
 public class Angle extends DoubleRecord {
-    public Angle(byte[] bytes){
+    public Angle(byte[] bytes) {
         super(bytes);
         Preconditions.checkArgument(bytes.length == 8);
     }
-
 
     @Override
     public RecordType getRecordType() {

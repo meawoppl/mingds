@@ -1,12 +1,11 @@
 package mingds.record;
 
+import java.time.LocalDateTime;
 import mingds.record.base.RecordType;
 import mingds.record.base.ShortRecord;
 
-import java.time.LocalDateTime;
-
 public class BgnLib extends ShortRecord {
-    public BgnLib(){
+    public BgnLib() {
         super(12);
         setModifiedTime(LocalDateTime.now());
         setAccessTime(LocalDateTime.now());
@@ -42,10 +41,22 @@ public class BgnLib extends ShortRecord {
     }
 
     public LocalDateTime getModifiedTime() {
-        return LocalDateTime.of(getElement(0), getElement(1), getElement(2), getElement(3), getElement(4), getElement(5));
+        return LocalDateTime.of(
+                getElement(0),
+                getElement(1),
+                getElement(2),
+                getElement(3),
+                getElement(4),
+                getElement(5));
     }
 
     public LocalDateTime getAccessedTime() {
-        return LocalDateTime.of(getElement(6), getElement(7), getElement(8), getElement(9), getElement(10), getElement(11));
+        return LocalDateTime.of(
+                getElement(6),
+                getElement(7),
+                getElement(8),
+                getElement(9),
+                getElement(10),
+                getElement(11));
     }
 }

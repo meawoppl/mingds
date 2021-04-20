@@ -5,7 +5,7 @@ import mingds.record.base.AsciiRecord;
 import mingds.record.base.RecordType;
 
 public class StringRecord extends AsciiRecord {
-    public StringRecord(byte[] bytes){
+    public StringRecord(byte[] bytes) {
         super(bytes);
         Preconditions.checkArgument(bytes.length <= 512);
     }

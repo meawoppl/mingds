@@ -1,14 +1,13 @@
 package mingds.stream;
 
 import com.google.common.collect.Streams;
-import mingds.record.base.RecordBase;
-
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
+import mingds.record.base.RecordBase;
 
 public class GDSIIReader {
     public static Stream<RecordBase<?>> from(Path path) throws IOException {
@@ -20,5 +19,4 @@ public class GDSIIReader {
         DataInputStream dis = new DataInputStream(fis);
         return Streams.stream(new GDSIIIterator(dis));
     }
-
 }

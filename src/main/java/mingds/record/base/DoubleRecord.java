@@ -1,13 +1,13 @@
 package mingds.record.base;
 
+import java.util.Arrays;
 import mingds.format.ByteMunging;
 
-import java.util.Arrays;
-
 public abstract class DoubleRecord extends RecordBase<Double> {
-    public DoubleRecord(byte[] bytes){
+    public DoubleRecord(byte[] bytes) {
         setBytes(bytes);
     }
+
     @Override
     public int getElementSize() {
         return 8;
@@ -15,7 +15,7 @@ public abstract class DoubleRecord extends RecordBase<Double> {
 
     @Override
     public Double getElement(int i) {
-        return ByteMunging.toDouble(Arrays.copyOfRange(getBytes(), i, i+8));
+        return ByteMunging.toDouble(Arrays.copyOfRange(getBytes(), i, i + 8));
     }
 
     @Override
@@ -23,7 +23,7 @@ public abstract class DoubleRecord extends RecordBase<Double> {
         byte[] encoded = ByteMunging.fromDouble(v);
 
         for (int j = 0; j < encoded.length; j++) {
-            setByte(i*8 + j, encoded[j]);
+            setByte(i * 8 + j, encoded[j]);
         }
     }
 }

@@ -1,7 +1,7 @@
 package mingds.record.base;
 
 public abstract class IntRecord extends RecordBase<Integer> {
-    public IntRecord(byte[] bytes){
+    public IntRecord(byte[] bytes) {
         setBytes(bytes);
     }
 
@@ -12,7 +12,7 @@ public abstract class IntRecord extends RecordBase<Integer> {
 
     @Override
     public Integer getElement(int i) {
-        return this.getBuffer().getInt(i*getElementSize());
+        return this.getBuffer().getInt(i * getElementSize());
     }
 
     @Override

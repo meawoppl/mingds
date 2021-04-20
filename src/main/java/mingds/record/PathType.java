@@ -5,9 +5,9 @@ import mingds.record.base.RecordType;
 import mingds.record.base.ShortRecord;
 
 public class PathType extends ShortRecord {
-    public PathType(byte[] bytes){
+    public PathType(byte[] bytes) {
         super(bytes);
-        Preconditions.checkArgument(bytes.length==2);
+        Preconditions.checkArgument(bytes.length == 2);
     }
 
     @Override
@@ -15,4 +15,3 @@ public class PathType extends ShortRecord {
         return RecordType.PATHTYPE;
     }
 }
-

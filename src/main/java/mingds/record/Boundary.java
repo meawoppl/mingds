@@ -1,6 +1,5 @@
 package mingds.record;
 
-import com.google.common.base.Preconditions;
 import mingds.record.base.NoData;
 import mingds.record.base.RecordType;
 
@@ -9,7 +8,7 @@ public class Boundary extends NoData {
         super(new byte[0]);
     }
 
-    public Boundary(byte[] bytes){
+    public Boundary(byte[] bytes) {
         super(bytes);
     }
 

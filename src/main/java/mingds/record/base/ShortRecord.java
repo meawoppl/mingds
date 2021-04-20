@@ -1,18 +1,18 @@
 package mingds.record.base;
 
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 
 public abstract class ShortRecord extends RecordBase<Short> {
     @Override
-    public int getElementSize() { return 2; }
-
-    public ShortRecord(int nShorts){
-        setBytes(new byte[2*nShorts]);
+    public int getElementSize() {
+        return 2;
     }
 
-    public ShortRecord(byte[] raw){
+    public ShortRecord(int nShorts) {
+        setBytes(new byte[2 * nShorts]);
+    }
+
+    public ShortRecord(byte[] raw) {
         setBytes(raw);
     }
 
@@ -30,5 +30,4 @@ public abstract class ShortRecord extends RecordBase<Short> {
     public int nElements() {
         return getBytes().length / 2;
     }
-
 }

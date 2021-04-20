@@ -5,7 +5,7 @@ import mingds.record.base.RecordType;
 import mingds.record.base.ShortRecord;
 
 public class ElFlags extends ShortRecord {
-    public ElFlags(byte[] bytes){
+    public ElFlags(byte[] bytes) {
         super(bytes);
         Preconditions.checkArgument(nElements() <= 1);
     }

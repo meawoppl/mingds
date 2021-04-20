@@ -5,9 +5,9 @@ import mingds.record.base.RecordType;
 import mingds.record.base.ShortRecord;
 
 public class DType extends ShortRecord {
-    public DType(byte[] bytes){
+    public DType(byte[] bytes) {
         super(bytes);
-        Preconditions.checkArgument(bytes.length==2);
+        Preconditions.checkArgument(bytes.length == 2);
     }
 
     @Override

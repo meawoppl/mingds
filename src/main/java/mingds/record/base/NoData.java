@@ -3,7 +3,7 @@ package mingds.record.base;
 import com.google.common.base.Preconditions;
 
 public abstract class NoData extends RecordBase<Void> {
-    public NoData(byte[] bytes){
+    public NoData(byte[] bytes) {
         Preconditions.checkArgument(bytes.length == 0);
     }
 

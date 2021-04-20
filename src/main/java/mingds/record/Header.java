@@ -10,16 +10,16 @@ public class Header extends ShortRecord {
         return RecordType.HEADER;
     }
 
-    public Header(byte[] bytes){
+    public Header(byte[] bytes) {
         super(bytes);
-        Preconditions.checkArgument(bytes.length==2);
+        Preconditions.checkArgument(bytes.length == 2);
     }
 
-    public int getVersion(){
+    public int getVersion() {
         return getElement(0);
     }
 
-    public void setVersion(int version){
+    public void setVersion(int version) {
         Preconditions.checkArgument(version < Short.MAX_VALUE);
         setElement(0, (short) version);
     }

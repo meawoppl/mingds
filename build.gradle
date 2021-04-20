@@ -10,6 +10,8 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'antlr'
+    id "com.diffplug.spotless" version "5.8.2"
+
 }
 
 repositories {
@@ -35,4 +37,10 @@ dependencies {
     antlr 'org.antlr:antlr4:4.7.1'
 
     compile "org.antlr:antlr4-intellij-adaptor:0.1"
+}
+
+spotless {
+    java {
+        googleJavaFormat('1.7').aosp()
+    }
 }

@@ -1,6 +1,9 @@
 package mingds.stream;
 
 import com.google.common.base.Preconditions;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.util.Iterator;
 import mingds.record.Angle;
 import mingds.record.BgnLib;
 import mingds.record.BgnStr;
@@ -30,28 +33,23 @@ import mingds.record.StringRecord;
 import mingds.record.Text;
 import mingds.record.TextType;
 import mingds.record.Units;
-
-import mingds.record.Unknown;
 import mingds.record.Width;
 import mingds.record.XY;
 import mingds.record.base.GDSIITypes;
 import mingds.record.base.RecordBase;
 import mingds.record.base.RecordType;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-
 public class GDSIIIterator implements Iterator<RecordBase<?>> {
     DataInputStream dis;
-    public GDSIIIterator(DataInputStream dis){
+
+    public GDSIIIterator(DataInputStream dis) {
         this.dis = dis;
     }
 
     public RecordBase<?> next() {
-        try{
+        try {
             return nextExc();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -61,17 +59,18 @@ public class GDSIIIterator implements Iterator<RecordBase<?>> {
         RecordType recType = RecordType.forID(dis.readByte());
         GDSIITypes dataType = GDSIITypes.forCode(dis.readByte());
 
-        byte[] recordRaw = new byte[recordLength-4];
+        byte[] recordRaw = new byte[recordLength - 4];
         int nRead = dis.read(recordRaw);
         Preconditions.checkArgument(nRead == recordRaw.length);
 
-        if(RecordType.ENDLIB == recType){
-            while(dis.available() > 0){
-                Preconditions.checkArgument(dis.read() == 0, "Unexpected padding value after ENDLIB");
+        if (RecordType.ENDLIB == recType) {
+            while (dis.available() > 0) {
+                Preconditions.checkArgument(
+                        dis.read() == 0, "Unexpected padding value after ENDLIB");
             }
         }
 
-        switch (recType){
+        switch (recType) {
             case ANGLE:
                 return new Angle(recordRaw);
             case BGNLIB:
@@ -135,13 +134,14 @@ public class GDSIIIterator implements Iterator<RecordBase<?>> {
             case XY:
                 return new XY(recordRaw);
             default:
-                System.out.println(String.format("Length: %04d, RType: %s DType: %s", recordLength, recType, dataType));
+                System.out.println(
+                        String.format(
+                                "Length: %04d, RType: %s DType: %s",
+                                recordLength, recType, dataType));
                 throw new RuntimeException("?");
                 // return new Unknown(recordRaw, recType.getCode());
                 // throw new RuntimeException("Not yet implemented");
         }
-
-
     }
 
     @Override

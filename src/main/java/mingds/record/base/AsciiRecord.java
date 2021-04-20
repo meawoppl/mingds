@@ -3,22 +3,24 @@ package mingds.record.base;
 import com.google.common.base.Preconditions;
 import mingds.format.ByteMunging;
 
-public abstract class AsciiRecord extends RecordBase<String>{
+public abstract class AsciiRecord extends RecordBase<String> {
     @Override
-    public int getElementSize() { return 1; }
+    public int getElementSize() {
+        return 1;
+    }
 
-    public AsciiRecord(byte[] bytes){
+    public AsciiRecord(byte[] bytes) {
         this(bytes.length);
         setBytes(bytes);
     }
 
-    public AsciiRecord(int size){
-        Preconditions.checkArgument(size >=2);
-        Preconditions.checkArgument(size%2==0);
+    public AsciiRecord(int size) {
+        Preconditions.checkArgument(size >= 2);
+        Preconditions.checkArgument(size % 2 == 0);
         setBytes(new byte[size]);
     }
 
-    public AsciiRecord(String string){
+    public AsciiRecord(String string) {
         setBytes(ByteMunging.fromJavaString(string));
     }
 

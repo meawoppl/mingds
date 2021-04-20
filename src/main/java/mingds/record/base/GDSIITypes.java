@@ -31,7 +31,7 @@ public enum GDSIITypes {
         }
     }
 
-    public static GDSIITypes forCode(int code){
+    public static GDSIITypes forCode(int code) {
         return lookup.get(code);
     }
 }

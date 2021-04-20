@@ -5,7 +5,7 @@ import mingds.record.base.RecordType;
 import mingds.record.base.ShortRecord;
 
 public class Layer extends ShortRecord {
-    public Layer(byte[] bytes){
+    public Layer(byte[] bytes) {
         super(bytes);
         Preconditions.checkArgument(bytes.length == 2);
     }

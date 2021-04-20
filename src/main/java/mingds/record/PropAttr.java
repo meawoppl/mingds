@@ -5,7 +5,7 @@ import mingds.record.base.RecordType;
 import mingds.record.base.ShortRecord;
 
 public class PropAttr extends ShortRecord {
-    public PropAttr(byte[] bytes){
+    public PropAttr(byte[] bytes) {
         super(bytes);
         Preconditions.checkArgument(bytes.length == 2);
 

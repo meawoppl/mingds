@@ -5,9 +5,10 @@ import mingds.record.base.DoubleRecord;
 import mingds.record.base.RecordType;
 
 public class Mag extends DoubleRecord {
-    public Mag(byte[] bytes){
+    public Mag(byte[] bytes) {
         super(bytes);
-        Preconditions.checkArgument(nElements() <= 1, "Expected 1 or less elements, got %d", getElementSize());
+        Preconditions.checkArgument(
+                nElements() <= 1, "Expected 1 or less elements, got %d", getElementSize());
     }
 
     @Override
@@ -16,7 +17,7 @@ public class Mag extends DoubleRecord {
     }
 
     public double getMagnification() {
-        if(getElementSize() == 1){
+        if (getElementSize() == 1) {
             return getElement(0);
         }
 

@@ -4,10 +4,9 @@ import mingds.record.base.NoData;
 import mingds.record.base.RecordType;
 
 public class EndStr extends NoData {
-    public EndStr(byte[] bytes){
+    public EndStr(byte[] bytes) {
         super(bytes);
     }
-
 
     @Override
     public RecordType getRecordType() {
