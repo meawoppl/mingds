@@ -20,18 +20,8 @@ jobs:
         distribution: 'adopt'
         java-version: 11
 
-    - name: Install wine (exe conversion test)
-      run: sudo apt-get install wine-stable
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
     - name: Run Tests with Coverage
-      run: ./gradlew jacocoTestReport --stacktrace
-
-    - name: Generate Code Coverage
-      uses: actions/upload-artifact@v2
-      with:
-        name: code-coverage-report
-        path: build/reports/jacoco/test/html/*
-        if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+      run: ./gradlew test --stacktrace
