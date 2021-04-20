@@ -2,6 +2,7 @@ package mingds.record.base;
 
 import com.google.common.base.Preconditions;
 
+import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;
 
 public abstract class RecordBase<E> {
@@ -31,7 +32,7 @@ public abstract class RecordBase<E> {
 
     public abstract int getElementSize();
 
-    public abstract RecordType getRecordType();
+    public abstract @Nonnull RecordType getRecordType();
 
     public abstract E getElement(int i);
     public abstract void setElement(int i, E v);

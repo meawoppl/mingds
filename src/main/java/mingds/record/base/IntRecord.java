@@ -12,7 +12,7 @@ public abstract class IntRecord extends RecordBase<Integer> {
 
     @Override
     public Integer getElement(int i) {
-        return this.getBuffer().getInt(i);
+        return this.getBuffer().getInt(i*getElementSize());
     }
 
     @Override

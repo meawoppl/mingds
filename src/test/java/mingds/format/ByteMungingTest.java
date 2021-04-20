@@ -1,4 +1,4 @@
-package mingds;
+package mingds.format;
 
 import com.google.common.collect.Streams;
 import junit.framework.TestCase;

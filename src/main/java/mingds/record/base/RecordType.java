@@ -1,5 +1,9 @@
 package mingds.record.base;
 
+import com.google.common.base.Preconditions;
+import mingds.GdsiiParser;
+import org.antlr.v4.runtime.CommonToken;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,15 +99,37 @@ public enum RecordType {
     }
 
     // Reverse-lookup map for getting a day from an abbreviation
-    private static final Map<Integer, RecordType> lookup = new HashMap<>();
+    private static final Map<Integer, RecordType> lookupByCode = new HashMap<>();
+    private static final Map<String, RecordType> lookupByName = new HashMap<>();
+    private static final Map<RecordType, Integer> recordToParseToTokenID = new HashMap<>();
 
     static {
         for (RecordType d : RecordType.values()) {
-            lookup.put(d.getCode(), d);
+            lookupByCode.put(d.getCode(), d);
+            lookupByName.put(d.name(), d);
+        }
+
+        for (int i = 1; i <= GdsiiParser.VOCABULARY.getMaxTokenType(); i++) {
+            String name = GdsiiParser.VOCABULARY.getLiteralName(i);
+            name = name.replace("'", "");
+            RecordType rt = RecordType.forName(name);
+            recordToParseToTokenID.put(rt, i);
         }
     }
 
     public static RecordType forID(int id){
-        return lookup.get(id);
+        Preconditions.checkArgument(lookupByCode.containsKey(id), "No RecordType for id:" + id);
+        return lookupByCode.get(id);
+    }
+    public static RecordType forName(String name) {
+        Preconditions.checkArgument(lookupByName.containsKey(name), "No key for: '" + name + "'");
+        return  lookupByName.get(name);
+    }
+
+    public CommonToken getParseToken() {
+        Preconditions.checkArgument(recordToParseToTokenID.containsKey(this), "Missing TokenID for %s", this);
+        int tokenID = recordToParseToTokenID.get(this);
+        return new CommonToken(tokenID, this.name());
+
     }
 }

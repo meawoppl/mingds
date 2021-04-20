@@ -1,4 +1,4 @@
-package mingds;
+package mingds.stream;
 
 import mingds.record.base.RecordBase;
 import mingds.record.base.RecordType;

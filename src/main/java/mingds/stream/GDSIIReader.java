@@ -1,4 +1,4 @@
-package mingds;
+package mingds.stream;
 
 import com.google.common.collect.Streams;
 import mingds.record.base.RecordBase;

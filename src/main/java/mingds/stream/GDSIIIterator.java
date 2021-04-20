@@ -1,11 +1,14 @@
-package mingds;
+package mingds.stream;
 
 import com.google.common.base.Preconditions;
 import mingds.record.Angle;
 import mingds.record.BgnLib;
 import mingds.record.BgnStr;
 import mingds.record.Boundary;
+import mingds.record.Box;
+import mingds.record.BoxType;
 import mingds.record.DType;
+import mingds.record.ElFlags;
 import mingds.record.EndEl;
 import mingds.record.EndLib;
 import mingds.record.EndStr;
@@ -15,6 +18,7 @@ import mingds.record.LibName;
 import mingds.record.Mag;
 import mingds.record.Path;
 import mingds.record.PathType;
+import mingds.record.Plex;
 import mingds.record.Presentation;
 import mingds.record.PropAttr;
 import mingds.record.PropValue;
@@ -76,8 +80,14 @@ public class GDSIIIterator implements Iterator<RecordBase<?>> {
                 return new Boundary(recordRaw);
             case BGNSTR:
                 return new BgnStr(recordRaw);
+            case BOX:
+                return new Box(recordRaw);
+            case BOXTYPE:
+                return new BoxType(recordRaw);
             case DATATYPE:
                 return new DType(recordRaw);
+            case ELFLAGS:
+                return new ElFlags(recordRaw);
             case ENDEL:
                 return new EndEl(recordRaw);
             case ENDLIB:
@@ -96,6 +106,8 @@ public class GDSIIIterator implements Iterator<RecordBase<?>> {
                 return new Path(recordRaw);
             case PATHTYPE:
                 return new PathType(recordRaw);
+            case PLEX:
+                return new Plex(recordRaw);
             case PRESENTATION:
                 return new Presentation(recordRaw);
             case PROPATTR:
