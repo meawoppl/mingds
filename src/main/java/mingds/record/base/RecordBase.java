@@ -43,4 +43,9 @@ public abstract class RecordBase<E> {
     public int nElements() {
         return this.bytes.length / getElementSize();
     }
+
+    public RecordParseToken getParseToken() {
+        RecordType rt = getRecordType();
+        return new RecordParseToken(rt.getParseTokenID(), rt.name(), this);
+    }
 }

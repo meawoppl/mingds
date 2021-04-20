@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import java.util.HashMap;
 import java.util.Map;
 import mingds.GdsiiParser;
-import org.antlr.v4.runtime.CommonToken;
 
 public enum RecordType {
     NULL(-0x01),
@@ -109,6 +108,7 @@ public enum RecordType {
             lookupByName.put(d.name(), d);
         }
 
+        // NB: One based (mumble mumble)
         for (int i = 1; i <= GdsiiParser.VOCABULARY.getMaxTokenType(); i++) {
             String name = GdsiiParser.VOCABULARY.getLiteralName(i);
             name = name.replace("'", "");
@@ -127,10 +127,9 @@ public enum RecordType {
         return lookupByName.get(name);
     }
 
-    public CommonToken getParseToken() {
+    public int getParseTokenID() {
         Preconditions.checkArgument(
                 recordToParseToTokenID.containsKey(this), "Missing TokenID for %s", this);
-        int tokenID = recordToParseToTokenID.get(this);
-        return new CommonToken(tokenID, this.name());
+        return recordToParseToTokenID.get(this);
     }
 }

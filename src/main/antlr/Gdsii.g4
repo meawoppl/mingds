@@ -48,20 +48,22 @@ units: 'UNITS';
 width: 'WIDTH';
 xy: 'XY';
 
-boundaryElement: boundary elflags? plex? layer datatype xy;
-srefElement: sref elflags? plex? sname strans? xy;
-arefElement: aref elflags? plex? sname strans? colrow xy;
-textElement: text elflags? plex? layer texttype presentation? pathtype? width? strans? xy string;
-pathElement: path elflags? plex? layer datatype pathtype? width? xy;
-nodeElement: node elflags? plex? layer nodetype xy;
-boxElement:  box  elflags? plex? layer boxtype xy;
-
-element: (boundaryElement | pathElement | srefElement | arefElement | textElement | nodeElement | boxElement) property* endel;
-
-structure: bgnstr strname strclass? element+ endstr;
-formatType: format | (format mask+ endmasks);
-
+// Transform params...
 strans:	stransTag mag? angle?;
+
+// Element types
+arefElement: aref elflags? plex? sname strans? colrow xy;
+boundaryElement: boundary elflags? plex? layer datatype xy;
+boxElement:  box  elflags? plex? layer boxtype xy;
+nodeElement: node elflags? plex? layer nodetype xy;
+pathElement: path elflags? plex? layer datatype pathtype? width? xy;
+srefElement: sref elflags? plex? sname strans? xy;
+textElement: text elflags? plex? layer texttype presentation? pathtype? width? strans? xy string;
+
 property: propattr propvalue;
 
+element: (boundaryElement | pathElement | srefElement | arefElement | textElement | nodeElement | boxElement) property* endel;
+structure: bgnstr strname strclass? element+ endstr;
+
+formatType: format | (format mask+ endmasks);
 stream: header bgnlib libname reflibs? fonts? attrtable? generations? formatType? units structure+ endlib;

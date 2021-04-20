@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 import junit.framework.TestCase;
 import mingds.GdsiiParser;
 import mingds.record.base.RecordBase;
+import mingds.record.base.RecordParseToken;
 import mingds.record.base.RecordType;
 import mingds.render.Render;
-import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ListTokenSource;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -89,11 +89,8 @@ public class GDSIIReaderTest extends TestCase {
         List<RecordBase<?>> recs = GDSIIReader.from(p).collect(Collectors.toList());
 
         // Convert a RecordBase to a equivalent common token type...
-        List<CommonToken> tokens =
-                recs.stream()
-                        .map(RecordBase::getRecordType)
-                        .map(RecordType::getParseToken)
-                        .collect(Collectors.toList());
+        List<RecordParseToken> tokens =
+                recs.stream().map(RecordBase::getParseToken).collect(Collectors.toList());
 
         ListTokenSource lts = new ListTokenSource(tokens);
         CommonTokenStream stream = new CommonTokenStream(lts);
