@@ -1,7 +1,8 @@
 package mingds.record.base;
 
 public abstract class IntRecord extends RecordBase<Integer> {
-    public IntRecord(byte[] bytes) {
+    public IntRecord(byte[] bytes, RecordType rt) {
+        super(rt);
         setBytes(bytes);
     }
 

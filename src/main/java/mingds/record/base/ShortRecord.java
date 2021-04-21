@@ -1,29 +1,29 @@
 package mingds.record.base;
 
-import java.nio.ByteBuffer;
-
 public abstract class ShortRecord extends RecordBase<Short> {
     @Override
     public int getElementSize() {
         return 2;
     }
 
-    public ShortRecord(int nShorts) {
+    public ShortRecord(int nShorts, RecordType rt) {
+        super(rt);
         setBytes(new byte[2 * nShorts]);
     }
 
-    public ShortRecord(byte[] raw) {
+    public ShortRecord(byte[] raw, RecordType rt) {
+        super(rt);
         setBytes(raw);
     }
 
     @Override
     public void setElement(int i, Short v) {
-        ByteBuffer.wrap(getBytes()).putShort(i, v);
+        getBuffer().putShort(i * 2, v);
     }
 
     @Override
     public Short getElement(int i) {
-        return ByteBuffer.wrap(getBytes()).getShort(i);
+        return getBuffer().getShort(i * 2);
     }
 
     @Override

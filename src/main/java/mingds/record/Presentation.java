@@ -8,12 +8,7 @@ import mingds.record.base.ShortRecord;
 public class Presentation extends ShortRecord {
 
     public Presentation(byte[] bytes) {
-        super(bytes);
+        super(bytes, RecordType.PRESENTATION);
         Preconditions.checkArgument(nElements() == 1);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.PRESENTATION;
     }
 }

@@ -5,11 +5,6 @@ import mingds.record.base.RecordType;
 
 public class StrName extends AsciiRecord {
     public StrName(byte[] bytes) {
-        super(bytes);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.STRNAME;
+        super(bytes, RecordType.STRNAME);
     }
 }

@@ -4,7 +4,8 @@ import java.util.Arrays;
 import mingds.format.ByteMunging;
 
 public abstract class DoubleRecord extends RecordBase<Double> {
-    public DoubleRecord(byte[] bytes) {
+    public DoubleRecord(byte[] bytes, RecordType rt) {
+        super(rt);
         setBytes(bytes);
     }
 

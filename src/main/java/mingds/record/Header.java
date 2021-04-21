@@ -5,13 +5,8 @@ import mingds.record.base.RecordType;
 import mingds.record.base.ShortRecord;
 
 public class Header extends ShortRecord {
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.HEADER;
-    }
-
     public Header(byte[] bytes) {
-        super(bytes);
+        super(bytes, RecordType.HEADER);
         Preconditions.checkArgument(bytes.length == 2);
     }
 

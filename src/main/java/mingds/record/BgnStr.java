@@ -1,14 +1,10 @@
 package mingds.record;
 
 import mingds.record.base.RecordType;
+import mingds.record.base.TimeRecord;
 
-public class BgnStr extends BgnLib {
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.BGNSTR;
-    }
-
+public class BgnStr extends TimeRecord {
     public BgnStr(byte[] bytes) {
-        super(bytes);
+        super(bytes, RecordType.BGNSTR);
     }
 }

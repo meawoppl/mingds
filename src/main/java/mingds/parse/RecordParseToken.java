@@ -1,5 +1,6 @@
-package mingds.record.base;
+package mingds.parse;
 
+import mingds.record.base.RecordBase;
 import org.antlr.v4.runtime.CommonToken;
 
 public class RecordParseToken extends CommonToken {

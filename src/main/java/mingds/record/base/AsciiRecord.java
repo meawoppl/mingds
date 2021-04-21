@@ -9,19 +9,15 @@ public abstract class AsciiRecord extends RecordBase<String> {
         return 1;
     }
 
-    public AsciiRecord(byte[] bytes) {
-        this(bytes.length);
+    public AsciiRecord(byte[] bytes, RecordType rt) {
+        super(rt);
+        Preconditions.checkArgument(bytes.length >= 2);
+        Preconditions.checkArgument(bytes.length % 2 == 0);
         setBytes(bytes);
     }
 
-    public AsciiRecord(int size) {
-        Preconditions.checkArgument(size >= 2);
-        Preconditions.checkArgument(size % 2 == 0);
-        setBytes(new byte[size]);
-    }
-
-    public AsciiRecord(String string) {
-        setBytes(ByteMunging.fromJavaString(string));
+    public AsciiRecord(String string, RecordType rt) {
+        this(ByteMunging.fromJavaString(string), rt);
     }
 
     @Override

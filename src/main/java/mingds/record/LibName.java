@@ -11,13 +11,8 @@ public class LibName extends AsciiRecord {
     }
 
     public LibName(String name) {
-        super(name);
+        super(name, RecordType.LIBNAME);
         Preconditions.checkArgument(name.length() > 2);
         Preconditions.checkArgument(name.length() <= 256);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.LIBNAME;
     }
 }

@@ -6,13 +6,8 @@ import mingds.record.base.RecordType;
 
 public class Units extends DoubleRecord {
     public Units(byte[] bytes) {
-        super(bytes);
+        super(bytes, RecordType.UNITS);
         Preconditions.checkArgument(nElements() == 2);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.UNITS;
     }
 
     public double getDatabaseToUserUnit() {

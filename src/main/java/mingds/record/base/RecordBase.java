@@ -2,10 +2,22 @@ package mingds.record.base;
 
 import com.google.common.base.Preconditions;
 import java.nio.ByteBuffer;
-import javax.annotation.Nonnull;
+import mingds.parse.RecordParseToken;
+import org.antlr.v4.runtime.CommonToken;
 
-public abstract class RecordBase<E> {
+public abstract class RecordBase<E> extends CommonToken {
     private byte[] bytes = new byte[0];
+    private final RecordType rt;
+
+    public RecordBase(RecordType recordType) {
+
+        super(recordType.getParseTokenID(), recordType.name());
+        this.rt = recordType;
+    }
+
+    public final RecordType getRecordType() {
+        return rt;
+    }
 
     public byte[] getBytes() {
         return bytes;
@@ -33,8 +45,6 @@ public abstract class RecordBase<E> {
     }
 
     public abstract int getElementSize();
-
-    public abstract @Nonnull RecordType getRecordType();
 
     public abstract E getElement(int i);
 

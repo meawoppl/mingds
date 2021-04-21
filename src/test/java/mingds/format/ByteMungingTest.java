@@ -58,7 +58,7 @@ public class ByteMungingTest extends TestCase {
         assertEquals(val, ByteMunging.toFloat(bytes));
     }
 
-    public void testFloatRoundTripHader() {
+    public void testFloatRoundTripHarder() {
         // Some of the doubles are OOB when downcast, so filter them
         getTestDoubles()
                 .map(Double::floatValue)

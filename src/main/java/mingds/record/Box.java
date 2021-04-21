@@ -5,11 +5,6 @@ import mingds.record.base.RecordType;
 
 public class Box extends NoData {
     public Box(byte[] bytes) {
-        super(bytes);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.BOX;
+        super(bytes, RecordType.BOX);
     }
 }

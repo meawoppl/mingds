@@ -6,12 +6,7 @@ import mingds.record.base.ShortRecord;
 
 public class Layer extends ShortRecord {
     public Layer(byte[] bytes) {
-        super(bytes);
+        super(bytes, RecordType.LAYER);
         Preconditions.checkArgument(bytes.length == 2);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.LAYER;
     }
 }

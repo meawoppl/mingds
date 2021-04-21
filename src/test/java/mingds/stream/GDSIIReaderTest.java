@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import junit.framework.TestCase;
 import mingds.GdsiiParser;
 import mingds.record.base.RecordBase;
-import mingds.record.base.RecordParseToken;
 import mingds.record.base.RecordType;
 import mingds.render.Render;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -73,7 +72,6 @@ public class GDSIIReaderTest extends TestCase {
     @ParameterizedTest
     @MethodSource("getTestPaths")
     public void testXYPlotting(Path path) throws Exception {
-
         List<RecordBase<?>> recs = GDSIIReader.from(path).collect(Collectors.toList());
         Render render = Render.forRecords(recs, 1024);
         render.saveAsPNG(Path.of("testout").resolve(path.getFileName().toString() + ".png"));
@@ -87,12 +85,7 @@ public class GDSIIReaderTest extends TestCase {
     public void testPassingGrammar(Path p) throws Exception {
         // Name to tokenID
         List<RecordBase<?>> recs = GDSIIReader.from(p).collect(Collectors.toList());
-
-        // Convert a RecordBase to a equivalent common token type...
-        List<RecordParseToken> tokens =
-                recs.stream().map(RecordBase::getParseToken).collect(Collectors.toList());
-
-        ListTokenSource lts = new ListTokenSource(tokens);
+        ListTokenSource lts = new ListTokenSource(recs);
         CommonTokenStream stream = new CommonTokenStream(lts);
         GdsiiParser parser = new GdsiiParser(stream);
         GdsiiParser.StreamContext sc = parser.stream();

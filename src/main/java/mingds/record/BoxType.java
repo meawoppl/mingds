@@ -6,12 +6,7 @@ import mingds.record.base.ShortRecord;
 
 public class BoxType extends ShortRecord {
     public BoxType(byte[] bytes) {
-        super(bytes);
+        super(bytes, RecordType.BOXTYPE);
         Preconditions.checkArgument(nElements() == 1);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.BOXTYPE;
     }
 }

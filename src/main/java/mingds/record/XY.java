@@ -9,13 +9,8 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class XY extends IntRecord {
     public XY(byte[] bytes) {
-        super(bytes);
+        super(bytes, RecordType.XY);
         Preconditions.checkArgument(bytes.length % 8 == 0);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.XY;
     }
 
     Vector2D getXY(int index) {

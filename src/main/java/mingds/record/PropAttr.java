@@ -6,7 +6,7 @@ import mingds.record.base.ShortRecord;
 
 public class PropAttr extends ShortRecord {
     public PropAttr(byte[] bytes) {
-        super(bytes);
+        super(bytes, RecordType.PROPATTR);
         Preconditions.checkArgument(bytes.length == 2);
 
         short value = getElement(0);
@@ -16,10 +16,5 @@ public class PropAttr extends ShortRecord {
 
     public int getValue() {
         return getElement(0);
-    }
-
-    @Override
-    public RecordType getRecordType() {
-        return RecordType.PROPATTR;
     }
 }
