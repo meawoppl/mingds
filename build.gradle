@@ -3,8 +3,9 @@ plugins {
     id 'java-library'
     id 'antlr'
     id "com.diffplug.spotless" version "5.8.2"
-
 }
+
+sourceCompatibility = 11
 
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -14,32 +15,37 @@ repositories {
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:27.0.1-jre'
+    implementation group: 'org.reflections', name: 'reflections', version: '0.9.12'
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
-
-    testCompile "org.junit.jupiter:junit-jupiter-params:5.7.0"
+    testCompile "org.junit.jupiter:junit-jupiter-params:5.5.2"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.5.2"
+    testRuntime "org.junit.platform:junit-platform-runner:1.5.2"
 
     // https://mvnrepository.com/artifact/org.antlr/antlr4-runtime
     antlr 'org.antlr:antlr4:4.7.1'
-
     compile "org.antlr:antlr4-intellij-adaptor:0.1"
 }
 
 // Make tests run via the CLI make some noise
 test {
-    afterTest { desc, result ->
-        logger.quiet "Executing test [${desc.className}]->${desc.name} with result: ${result.resultType}"
-    }
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+
+    useJUnitPlatform()
+//
+//    afterTest { desc, result ->
+//        logger.quiet "Executing test [${desc.className}]->${desc.name} with result: ${result.resultType}"
+//    }
 }
 
 spotless {
     java {
         googleJavaFormat('1.7').aosp()
+        target project.fileTree(project.rootDir) {
+            include '**/*.java'
+            exclude 'build/**/*.*'
+        }
     }
 }

@@ -10,13 +10,13 @@ public abstract class DoubleRecord extends RecordBase<Double> {
     }
 
     @Override
-    public int getElementSize() {
-        return 8;
+    public GDSIITypes getDataType() {
+        return GDSIITypes.REAL8;
     }
 
     @Override
     public Double getElement(int i) {
-        return ByteMunging.toDouble(Arrays.copyOfRange(getBytes(), i, i + 8));
+        return ByteMunging.toDouble(Arrays.copyOfRange(getBytes(), i * 8, i * 8 + 8));
     }
 
     @Override

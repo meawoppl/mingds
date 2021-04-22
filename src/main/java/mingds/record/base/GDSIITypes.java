@@ -8,7 +8,7 @@ public enum GDSIITypes {
     BITARRAY(1),
     INT2(2),
     INT4(3),
-    REAL4(4),
+    REAL4(4), // Not used?
     REAL8(5),
     ASCII(6);
 

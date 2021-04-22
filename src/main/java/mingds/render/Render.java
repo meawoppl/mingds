@@ -60,7 +60,6 @@ public class Render {
 
         xyRecs.forEach(
                 xy -> {
-                    System.out.println(xy.getXYs().count());
                     render.strokeSegments(xy.getXYs().collect(Collectors.toList()), Color.BLUE);
                 });
 
