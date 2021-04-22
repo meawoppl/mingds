@@ -124,7 +124,7 @@ public class GDSIIReaderTest {
     public void testXYPlotting(Path path) throws Exception {
         List<RecordBase<?>> recs = GDSIIReader.from(path).collect(Collectors.toList());
         Render render = Render.forRecords(recs, 1024);
-        render.saveAsPNG(Path.of("testout").resolve(path.getFileName().toString() + ".png"));
+        //render.saveAsPNG(Path.of("testout").resolve(path.getFileName().toString() + ".png"));
         BufferedImage bi = render.getBi();
 
         Assertions.assertEquals(0, 0);
