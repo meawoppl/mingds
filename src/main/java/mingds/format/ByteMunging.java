@@ -1,7 +1,9 @@
 package mingds.format;
 
 import com.google.common.base.Preconditions;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
@@ -181,5 +183,9 @@ public class ByteMunging {
         result[3] = (byte) ((mantissa) & 0x000000FF);
 
         return result;
+    }
+
+    public static DataInputStream toDataInputStream(byte[] bytes) {
+        return new DataInputStream(new ByteArrayInputStream(bytes));
     }
 }

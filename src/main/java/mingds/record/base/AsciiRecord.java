@@ -4,11 +4,6 @@ import com.google.common.base.Preconditions;
 import mingds.format.ByteMunging;
 
 public abstract class AsciiRecord extends RecordBase<String> {
-    @Override
-    public int getElementSize() {
-        return 1;
-    }
-
     public AsciiRecord(byte[] bytes, RecordType rt) {
         super(rt);
         Preconditions.checkArgument(bytes.length >= 2);
@@ -18,6 +13,11 @@ public abstract class AsciiRecord extends RecordBase<String> {
 
     public AsciiRecord(String string, RecordType rt) {
         this(ByteMunging.fromJavaString(string), rt);
+    }
+
+    @Override
+    public GDSIITypes getDataType() {
+        return GDSIITypes.ASCII;
     }
 
     @Override

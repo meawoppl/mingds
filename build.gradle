@@ -29,6 +29,8 @@ dependencies {
     antlr 'org.antlr:antlr4:4.7.1'
 
     compile "org.antlr:antlr4-intellij-adaptor:0.1"
+
+    implementation group: 'org.reflections', name: 'reflections', version: '0.9.12'
 }
 
 // Make tests run via the CLI make some noise

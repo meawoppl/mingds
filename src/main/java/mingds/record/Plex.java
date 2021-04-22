@@ -1,9 +1,9 @@
 package mingds.record;
 
+import mingds.record.base.IntRecord;
 import mingds.record.base.RecordType;
-import mingds.record.base.ShortRecord;
 
-public class Plex extends ShortRecord {
+public class Plex extends IntRecord {
     public Plex(byte[] bytes) {
         super(bytes, RecordType.PLEX);
         // NOTE(meawoppl) the notes from:

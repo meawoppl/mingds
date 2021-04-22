@@ -9,8 +9,8 @@ public abstract class NoData extends RecordBase<Void> {
     }
 
     @Override
-    public int getElementSize() {
-        return 0;
+    public GDSIITypes getDataType() {
+        return GDSIITypes.NODATA;
     }
 
     @Override

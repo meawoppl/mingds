@@ -7,8 +7,8 @@ public abstract class IntRecord extends RecordBase<Integer> {
     }
 
     @Override
-    public int getElementSize() {
-        return 4;
+    public GDSIITypes getDataType() {
+        return GDSIITypes.INT4;
     }
 
     @Override

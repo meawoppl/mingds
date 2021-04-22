@@ -1,11 +1,6 @@
 package mingds.record.base;
 
 public abstract class ShortRecord extends RecordBase<Short> {
-    @Override
-    public int getElementSize() {
-        return 2;
-    }
-
     public ShortRecord(int nShorts, RecordType rt) {
         super(rt);
         setBytes(new byte[2 * nShorts]);
@@ -14,6 +9,11 @@ public abstract class ShortRecord extends RecordBase<Short> {
     public ShortRecord(byte[] raw, RecordType rt) {
         super(rt);
         setBytes(raw);
+    }
+
+    @Override
+    public GDSIITypes getDataType() {
+        return GDSIITypes.INT2;
     }
 
     @Override

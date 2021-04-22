@@ -1,13 +1,12 @@
 package mingds.record;
 
 import com.google.common.base.Preconditions;
-import mingds.format.ByteMunging;
 import mingds.record.base.AsciiRecord;
 import mingds.record.base.RecordType;
 
 public class LibName extends AsciiRecord {
     public LibName(byte[] bytes) {
-        this(ByteMunging.toJavaString(bytes));
+        super(bytes, RecordType.LIBNAME);
     }
 
     public LibName(String name) {
