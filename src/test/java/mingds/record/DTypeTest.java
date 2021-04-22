@@ -1,13 +1,15 @@
 package mingds.record;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class DTypeTest extends TestCase {
+public class DTypeTest {
+    @Test
     public void testGetDataType() {
         DType dType = new DType();
-        assertEquals(0, dType.getDType());
+        Assertions.assertEquals(0, dType.getDType());
 
         dType.setDataType(2);
-        assertEquals(2, dType.getDType());
+        Assertions.assertEquals(2, dType.getDType());
     }
 }

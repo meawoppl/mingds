@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import junit.framework.TestCase;
 import mingds.GdsiiParser;
 import mingds.record.base.RecordBase;
 import mingds.record.base.RecordType;
@@ -21,10 +20,11 @@ import mingds.render.Render;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ListTokenSource;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class GDSIIReaderTest extends TestCase {
+public class GDSIIReaderTest {
     private static Stream<Path> getTestPaths() throws Exception {
         Path root = Path.of("src/test/resources/gds_examples");
         return Files.list(root)
@@ -43,8 +43,9 @@ public class GDSIIReaderTest extends TestCase {
                         });
     }
 
+    @Test
     public void testGetTests() throws Exception {
-        assertTrue(getTestPaths().count() > 6);
+        Assertions.assertTrue(getTestPaths().count() > 6);
     }
 
     @ParameterizedTest
@@ -115,7 +116,7 @@ public class GDSIIReaderTest extends TestCase {
     @MethodSource("getTestPaths")
     public void testXYExtraction(Path path) throws Exception {
         Stream<RecordBase<?>> recordBaseStream = GDSIIReader.from(path);
-        recordBaseStream.forEach(TestCase::assertNotNull);
+        recordBaseStream.forEach(Assertions::assertNotNull);
 
         // recordBaseStream.filter(rec->rec instanceof XY).map(rec->(XY)
         // rec).flatMap(XY::getXYs).forEach(System.out::println);
@@ -129,7 +130,7 @@ public class GDSIIReaderTest extends TestCase {
         render.saveAsPNG(Path.of("testout").resolve(path.getFileName().toString() + ".png"));
         BufferedImage bi = render.getBi();
 
-        assertEquals(0, 0);
+        Assertions.assertEquals(0, 0);
     }
 
     @ParameterizedTest
@@ -142,6 +143,6 @@ public class GDSIIReaderTest extends TestCase {
         GdsiiParser parser = new GdsiiParser(stream);
         GdsiiParser.StreamContext sc = parser.stream();
 
-        assertTrue(sc.children.size() > 0);
+        Assertions.assertTrue(sc.children.size() > 0);
     }
 }

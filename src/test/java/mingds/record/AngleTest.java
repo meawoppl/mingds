@@ -1,10 +1,11 @@
 package mingds.record;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class AngleTest extends TestCase {
-
+public class AngleTest {
+    @Test
     public void testGetAngle() {
-        assertEquals(0.0, new Angle().getAngle());
+        Assertions.assertEquals(0.0, new Angle().getAngle());
     }
 }
