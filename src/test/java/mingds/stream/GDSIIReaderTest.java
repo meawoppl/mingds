@@ -75,9 +75,6 @@ public class GDSIIReaderTest {
             RecordBase<?> rec2 = GDSIIReader.from(truncated).findFirst().get();
             Assertions.assertArrayEquals(rec.serialize(), rec2.serialize());
         }
-
-        Path tOut = Path.of("tempout");
-        GDSIIReader.to(tOut.resolve(path.getFileName()), records.stream());
     }
 
     @ParameterizedTest
