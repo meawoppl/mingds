@@ -20,7 +20,7 @@ public class XY extends IntRecord {
         for (int i = 0; i < points.size(); i++) {
             Vector2D v = points.get(i);
             setElement(i*2, (int) Math.round(v.getX()));
-            setElement(i*2+1, (int) Math.round(v.getY()));
+            setElement((i*2)+1, (int) Math.round(v.getY()));
         }
     }
     public XY(byte[] bytes) {
