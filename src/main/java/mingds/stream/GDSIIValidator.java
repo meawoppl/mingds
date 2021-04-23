@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.ListTokenSource;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 public class GDSIIValidator {
-    static class ValidationException extends Throwable {
+    public static class ValidationException extends Throwable {
         public ValidationException(Throwable e) {
             super(e);
         }
