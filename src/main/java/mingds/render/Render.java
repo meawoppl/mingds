@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import mingds.record.XY;
-import mingds.record.base.RecordBase;
+import mingds.record.base.GDSIIRecord;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class Render {
@@ -41,7 +41,7 @@ public class Render {
                 });
     }
 
-    public static Render forRecords(List<? extends RecordBase<?>> records, int size) {
+    public static Render forRecords(List<? extends GDSIIRecord<?>> records, int size) {
         List<XY> xyRecs =
                 records.stream()
                         .filter(r -> r instanceof XY)

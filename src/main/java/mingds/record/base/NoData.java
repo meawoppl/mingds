@@ -2,7 +2,7 @@ package mingds.record.base;
 
 import com.google.common.base.Preconditions;
 
-public abstract class NoData extends RecordBase<Void> {
+public abstract class NoData extends GDSIIRecord<Void> {
     public NoData(byte[] bytes, RecordType rt) {
         super(rt);
         Preconditions.checkArgument(bytes.length == 0);

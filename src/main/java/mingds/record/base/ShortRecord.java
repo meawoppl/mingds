@@ -1,6 +1,6 @@
 package mingds.record.base;
 
-public abstract class ShortRecord extends RecordBase<Short> {
+public abstract class ShortRecord extends GDSIIRecord<Short> {
     public ShortRecord(int nShorts, RecordType rt) {
         super(rt);
         setBytes(new byte[2 * nShorts]);

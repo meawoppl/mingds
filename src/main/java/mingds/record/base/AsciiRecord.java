@@ -3,7 +3,7 @@ package mingds.record.base;
 import com.google.common.base.Preconditions;
 import mingds.format.ByteMunging;
 
-public abstract class AsciiRecord extends RecordBase<String> {
+public abstract class AsciiRecord extends GDSIIRecord<String> {
     public AsciiRecord(byte[] bytes, RecordType rt) {
         super(rt);
         Preconditions.checkArgument(bytes.length >= 2);

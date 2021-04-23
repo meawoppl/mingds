@@ -31,13 +31,11 @@ dependencies {
 
 // Make tests run via the CLI make some noise
 test {
-    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
-
     useJUnitPlatform()
-//
-//    afterTest { desc, result ->
-//        logger.quiet "Executing test [${desc.className}]->${desc.name} with result: ${result.resultType}"
-//    }
+
+    afterTest { desc, result ->
+        logger.quiet "Executing test [${desc.className}]->${desc.name} with result: ${result.resultType}"
+    }
 }
 
 spotless {

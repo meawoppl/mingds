@@ -1,17 +1,17 @@
 package mingds.parse;
 
-import mingds.record.base.RecordBase;
+import mingds.record.base.GDSIIRecord;
 import org.antlr.v4.runtime.CommonToken;
 
 public class RecordParseToken extends CommonToken {
-    private final RecordBase<?> record;
+    private final GDSIIRecord<?> record;
 
-    public RecordParseToken(int type, String text, RecordBase<?> record) {
+    public RecordParseToken(int type, String text, GDSIIRecord<?> record) {
         super(type, text);
         this.record = record;
     }
 
-    public RecordBase<?> getRecord() {
+    public GDSIIRecord<?> getRecord() {
         return record;
     }
 }

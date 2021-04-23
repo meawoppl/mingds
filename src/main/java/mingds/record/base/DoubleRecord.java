@@ -3,7 +3,7 @@ package mingds.record.base;
 import java.util.Arrays;
 import mingds.format.ByteMunging;
 
-public abstract class DoubleRecord extends RecordBase<Double> {
+public abstract class DoubleRecord extends GDSIIRecord<Double> {
     public DoubleRecord(byte[] bytes, RecordType rt) {
         super(rt);
         setBytes(bytes);
