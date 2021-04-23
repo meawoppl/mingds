@@ -18,6 +18,6 @@ public abstract class IntRecord extends GDSIIRecord<Integer> {
 
     @Override
     public void setElement(int i, Integer v) {
-        this.getBuffer().putInt(i, v);
+        this.getBuffer().putInt(i * getElementSize(), v);
     }
 }

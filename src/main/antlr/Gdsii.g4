@@ -63,7 +63,7 @@ textElement: text elflags? plex? layer texttype presentation? pathtype? width? s
 property: propattr propvalue;
 
 element: (boundaryElement | pathElement | srefElement | arefElement | textElement | nodeElement | boxElement) property* endel;
-structure: bgnstr strname strclass? element+ endstr;
+structure: bgnstr strname strclass? element* endstr;
 
 formatType: format | (format mask+ endmasks);
 stream: header bgnlib libname reflibs? fonts? attrtable? generations? formatType? units structure+ endlib;
