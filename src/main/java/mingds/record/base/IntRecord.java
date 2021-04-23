@@ -1,6 +1,6 @@
 package mingds.record.base;
 
-public abstract class IntRecord extends RecordBase<Integer> {
+public abstract class IntRecord extends GDSIIRecord<Integer> {
     public IntRecord(byte[] bytes, RecordType rt) {
         super(rt);
         setBytes(bytes);

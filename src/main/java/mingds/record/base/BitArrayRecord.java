@@ -1,6 +1,6 @@
 package mingds.record.base;
 
-public abstract class BitArrayRecord extends RecordBase<Boolean> {
+public abstract class BitArrayRecord extends GDSIIRecord<Boolean> {
     public BitArrayRecord(byte[] bytes, RecordType recordType) {
         super(recordType);
         setBytes(bytes);

@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 
 public class BoxTypeTest {
     @Test
+    public void testInit() {
+        new BoxType();
+    }
+
+    @Test
     public void testGetBoxType() {
         BoxType boxType = new BoxType();
         Assertions.assertEquals(0, boxType.getBoxType());

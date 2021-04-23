@@ -10,7 +10,18 @@ public class TextType extends ShortRecord {
         Preconditions.checkArgument(nElements() == 1);
 
         short value = getElement(0);
-        Preconditions.checkArgument(value >= 0);
-        Preconditions.checkArgument(value <= 255);
+        if (value < 0 || value > 255) {
+            System.err.printf("Value for TEXTTYPE outside expected bounds: %d\n", value);
+        }
+    }
+
+    public int getTextType() {
+        return getElement(0);
+    }
+
+    public void setTextType(int value) {
+        Preconditions.checkArgument(value >= 0, "%d", value);
+        Preconditions.checkArgument(value <= 255, "%d", value);
+        setElement(0, (short) value);
     }
 }

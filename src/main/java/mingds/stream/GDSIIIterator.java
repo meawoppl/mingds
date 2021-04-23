@@ -1,24 +1,40 @@
 package mingds.stream;
 
 import com.google.common.base.Preconditions;
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 import mingds.format.ByteMunging;
-import mingds.record.base.RecordBase;
+import mingds.record.base.GDSIIRecord;
 import mingds.record.base.RecordType;
 
-public class GDSIIIterator implements Iterator<RecordBase<?>> {
+public class GDSIIIterator implements Iterator<GDSIIRecord<?>> {
     private final DataInputStream dis;
     private final AtomicInteger ai;
+
+    public static GDSIIIterator fromBytes(byte[] bytes) {
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        DataInputStream dis = new DataInputStream(bis);
+        return new GDSIIIterator(dis);
+    }
+
+    public static GDSIIIterator fromPath(Path path) throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(path.toFile());
+        DataInputStream dis = new DataInputStream(fis);
+        return new GDSIIIterator(dis);
+    }
 
     public GDSIIIterator(DataInputStream dis) {
         this.dis = dis;
         this.ai = new AtomicInteger(0);
     }
 
-    public RecordBase<?> next() {
+    public GDSIIRecord<?> next() {
         try {
             ai.incrementAndGet();
             return nextRecord();
@@ -42,8 +58,8 @@ public class GDSIIIterator implements Iterator<RecordBase<?>> {
         return encoded;
     }
 
-    public RecordBase<?> nextRecord() throws IOException {
-        RecordBase<?> ret = RecordBase.deserialize(nextBlock());
+    public GDSIIRecord<?> nextRecord() throws IOException {
+        GDSIIRecord<?> ret = GDSIIRecord.deserialize(nextBlock());
 
         // Sometimes GDSII files are padded to the closest 2048 bytes with nulls.
         // If we encounter an ENDLIB, consume the remaining bytes, and throw if
