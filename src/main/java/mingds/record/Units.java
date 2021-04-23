@@ -10,7 +10,7 @@ public class Units extends DoubleRecord {
         this(1e-3, 1e-9);
     }
 
-    public Units(double dbToUser, double dbToMeter){
+    public Units(double dbToUser, double dbToMeter) {
         this(new byte[16]);
         setElement(0, dbToUser);
         setElement(1, dbToMeter);
@@ -21,7 +21,10 @@ public class Units extends DoubleRecord {
         Preconditions.checkArgument(nElements() == 2);
     }
 
-    public double getDatabaseToUserUnit() { return getElement(0); }
+    public double getDatabaseToUserUnit() {
+        return getElement(0);
+    }
+
     public double getDatabaseUnitInMeters() {
         return getElement(1);
     }

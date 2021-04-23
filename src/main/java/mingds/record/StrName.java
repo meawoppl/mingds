@@ -8,7 +8,7 @@ public class StrName extends AsciiRecord {
         super(bytes, RecordType.STRNAME);
     }
 
-    public StrName(String name){
+    public StrName(String name) {
         super(name, RecordType.STRNAME);
     }
 }
