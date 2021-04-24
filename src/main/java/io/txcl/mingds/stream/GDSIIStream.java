@@ -1,13 +1,13 @@
 package io.txcl.mingds.stream;
 
 import com.google.common.collect.Streams;
+import io.txcl.mingds.record.base.GDSIIRecord;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.stream.Stream;
-import io.txcl.mingds.record.base.GDSIIRecord;
 
 public class GDSIIStream {
     public static Stream<GDSIIRecord<?>> from(Path path) throws IOException {

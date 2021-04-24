@@ -1,14 +1,14 @@
 package io.txcl.mingds.compose;
 
 import com.google.common.collect.Lists;
+import io.txcl.mingds.record.base.GDSIIRecord;
+import io.txcl.mingds.stream.GDSIIValidator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import io.txcl.mingds.record.base.GDSIIRecord;
-import io.txcl.mingds.stream.GDSIIValidator;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.junit.jupiter.api.Test;
 

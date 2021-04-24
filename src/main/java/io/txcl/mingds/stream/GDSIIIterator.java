@@ -1,6 +1,9 @@
 package io.txcl.mingds.stream;
 
 import com.google.common.base.Preconditions;
+import io.txcl.mingds.format.ByteMunging;
+import io.txcl.mingds.record.base.GDSIIRecord;
+import io.txcl.mingds.record.base.RecordType;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -9,9 +12,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
-import io.txcl.mingds.format.ByteMunging;
-import io.txcl.mingds.record.base.GDSIIRecord;
-import io.txcl.mingds.record.base.RecordType;
 
 public class GDSIIIterator implements Iterator<GDSIIRecord<?>> {
     private final DataInputStream dis;

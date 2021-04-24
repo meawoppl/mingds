@@ -1,7 +1,7 @@
 package io.txcl.mingds.record.base;
 
-import java.util.Arrays;
 import io.txcl.mingds.format.ByteMunging;
+import java.util.Arrays;
 
 public abstract class DoubleRecord extends GDSIIRecord<Double> {
     public DoubleRecord(byte[] bytes, RecordType rt) {

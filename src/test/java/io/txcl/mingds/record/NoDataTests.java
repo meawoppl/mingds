@@ -1,8 +1,8 @@
 package io.txcl.mingds.record;
 
-import java.util.stream.Stream;
 import io.txcl.mingds.TestHelpers;
 import io.txcl.mingds.record.base.NoData;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

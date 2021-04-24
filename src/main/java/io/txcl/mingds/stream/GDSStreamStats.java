@@ -1,10 +1,10 @@
 package io.txcl.mingds.stream;
 
+import io.txcl.mingds.record.base.GDSIIRecord;
+import io.txcl.mingds.record.base.RecordType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
-import io.txcl.mingds.record.base.GDSIIRecord;
-import io.txcl.mingds.record.base.RecordType;
 
 public class GDSStreamStats {
     public static Map<RecordType, Integer> captureStreamStats(Stream<GDSIIRecord<?>> stream) {

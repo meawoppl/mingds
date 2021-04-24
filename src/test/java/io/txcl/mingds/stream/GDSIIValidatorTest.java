@@ -1,12 +1,12 @@
 package io.txcl.mingds.stream;
 
+import io.txcl.mingds.record.base.GDSIIRecord;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import io.txcl.mingds.record.base.GDSIIRecord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

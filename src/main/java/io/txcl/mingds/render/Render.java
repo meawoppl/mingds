@@ -1,6 +1,8 @@
 package io.txcl.mingds.render;
 
 import com.google.common.base.Preconditions;
+import io.txcl.mingds.record.XY;
+import io.txcl.mingds.record.base.GDSIIRecord;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -13,8 +15,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
-import io.txcl.mingds.record.XY;
-import io.txcl.mingds.record.base.GDSIIRecord;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class Render {

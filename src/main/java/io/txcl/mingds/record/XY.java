@@ -1,11 +1,11 @@
 package io.txcl.mingds.record;
 
 import com.google.common.base.Preconditions;
+import io.txcl.mingds.record.base.IntRecord;
+import io.txcl.mingds.record.base.RecordType;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import io.txcl.mingds.record.base.IntRecord;
-import io.txcl.mingds.record.base.RecordType;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class XY extends IntRecord {

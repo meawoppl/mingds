@@ -1,8 +1,8 @@
 package io.txcl.mingds.stream;
 
-import java.util.List;
 import io.txcl.mingds.GdsiiParser;
 import io.txcl.mingds.record.base.GDSIIRecord;
+import java.util.List;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ListTokenSource;
 import org.antlr.v4.runtime.misc.ParseCancellationException;

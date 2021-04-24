@@ -2,8 +2,6 @@ package io.txcl.mingds.compose;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Streams;
-import java.util.List;
-import java.util.stream.Stream;
 import io.txcl.mingds.record.BgnLib;
 import io.txcl.mingds.record.BgnStr;
 import io.txcl.mingds.record.Boundary;
@@ -18,6 +16,8 @@ import io.txcl.mingds.record.StrName;
 import io.txcl.mingds.record.Units;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
+import java.util.List;
+import java.util.stream.Stream;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class PolygonStream {

@@ -1,10 +1,6 @@
 package io.txcl.mingds.record.base;
 
 import com.google.common.base.Preconditions;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
 import io.txcl.mingds.format.ByteMunging;
 import io.txcl.mingds.parse.RecordParseToken;
 import io.txcl.mingds.record.Angle;
@@ -38,6 +34,10 @@ import io.txcl.mingds.record.TextType;
 import io.txcl.mingds.record.Units;
 import io.txcl.mingds.record.Width;
 import io.txcl.mingds.record.XY;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 import org.antlr.v4.runtime.CommonToken;
 
 public abstract class GDSIIRecord<E> extends CommonToken {

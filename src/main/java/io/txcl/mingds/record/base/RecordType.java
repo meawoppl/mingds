@@ -1,9 +1,9 @@
 package io.txcl.mingds.record.base;
 
 import com.google.common.base.Preconditions;
+import io.txcl.mingds.GdsiiParser;
 import java.util.HashMap;
 import java.util.Map;
-import io.txcl.mingds.GdsiiParser;
 
 public enum RecordType {
     NULL(-0x01),
