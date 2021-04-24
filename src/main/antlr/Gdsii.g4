@@ -1,7 +1,7 @@
 grammar Gdsii;
 
 @header {
-    package mingds;
+    package io.txcl.mingds;
 }
 
 angle: 'ANGLE';
