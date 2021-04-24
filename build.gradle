@@ -10,11 +10,13 @@ allprojects {
     version = '1.0.0'
 }
 
-sourceCompatibility = 11
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
 
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
     mavenCentral()
 }
@@ -25,13 +27,13 @@ dependencies {
     implementation group: 'org.reflections', name: 'reflections', version: '0.9.12'
 
     // Use JUnit test framework
-    testCompile "org.junit.jupiter:junit-jupiter-params:5.5.2"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.5.2"
-    testRuntime "org.junit.platform:junit-platform-runner:1.5.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.5.2"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.5.2"
+    testRuntimeOnly "org.junit.platform:junit-platform-runner:1.5.2"
 
     // https://mvnrepository.com/artifact/org.antlr/antlr4-runtime
     antlr 'org.antlr:antlr4:4.7.1'
-    compile "org.antlr:antlr4-intellij-adaptor:0.1"
+    implementation "org.antlr:antlr4-intellij-adaptor:0.1"
 }
 
 // Make tests run via the CLI make some noise
