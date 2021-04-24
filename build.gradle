@@ -2,13 +2,12 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'antlr'
-    id "com.diffplug.spotless" version "5.8.2"
+    id "com.diffplug.spotless" version "5.12.4"
 }
 
-allprojects {
-    group = 'io.txcl.mingds'
-    version = '1.0.0'
-}
+
+group = 'io.txcl.mingds'
+version = '1.0.0'
 
 java {
     toolchain {
@@ -43,6 +42,18 @@ test {
     afterTest { desc, result ->
         logger.quiet "Executing test [${desc.className}]->${desc.name} with result: ${result.resultType}"
     }
+}
+
+//NOTE(G3): Gradle v7.0 was throwing some noisy implicit task dependency warnings
+// that were disabling execution optimizations.. This explicitly sets those dependenices
+project.afterEvaluate {
+    spotlessJava.dependsOn(
+            'compileJava',
+            'compileTestJava',
+            'processResources',
+            'processTestResources',
+            'test'
+    )
 }
 
 spotless {
