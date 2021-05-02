@@ -1,6 +1,7 @@
 package io.txcl.mingds.compose;
 
 import io.txcl.mingds.render.Render;
+import io.txcl.mingds.stream.GDSIIStream;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
@@ -10,8 +11,6 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
-
-import io.txcl.mingds.stream.GDSIIStream;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +28,13 @@ public class TextSupportTest {
                 g2d -> {
                     Font font = new Font("Noto", Font.PLAIN, 6);
                     FontRenderContext fontRenderContext = g2d.getFontRenderContext();
-                    GlyphVector glyphVector = font.layoutGlyphVector(fontRenderContext, "dif".toCharArray(), 0, 3, Font.LAYOUT_LEFT_TO_RIGHT);
+                    GlyphVector glyphVector =
+                            font.layoutGlyphVector(
+                                    fontRenderContext,
+                                    "dif".toCharArray(),
+                                    0,
+                                    3,
+                                    Font.LAYOUT_LEFT_TO_RIGHT);
                     TextSupport.spoolGlyphVector(glyphVector)
                             .forEach(c -> pcr.fillSegments(c, Color.BLUE));
                     TextSupport.spoolGlyphVector(glyphVector)
@@ -41,19 +46,29 @@ public class TextSupportTest {
     }
 
     @Test
-    public void testTextToPolygon(){
+    public void testTextToPolygon() {
         for (int i = 3; i < 20; i++) {
             List<List<Vector2D>> fbb = TextSupport.textToPolygons("M", i);
 
-            DoubleSummaryStatistics dssX = fbb.stream().flatMap(Collection::stream).mapToDouble(Vector2D::getX).summaryStatistics();
-            DoubleSummaryStatistics dssY = fbb.stream().flatMap(Collection::stream).mapToDouble(Vector2D::getY).summaryStatistics();
+            DoubleSummaryStatistics dssX =
+                    fbb.stream()
+                            .flatMap(Collection::stream)
+                            .mapToDouble(Vector2D::getX)
+                            .summaryStatistics();
+            DoubleSummaryStatistics dssY =
+                    fbb.stream()
+                            .flatMap(Collection::stream)
+                            .mapToDouble(Vector2D::getY)
+                            .summaryStatistics();
 
-            System.out.printf("%d X: %f-%f Y %f-%f\n", i, dssX.getMin(), dssX.getMax(), dssY.getMin(), dssY.getMax());
+            System.out.printf(
+                    "%d X: %f-%f Y %f-%f\n",
+                    i, dssX.getMin(), dssX.getMax(), dssY.getMin(), dssY.getMax());
         }
     }
 
     @Test
-    public void fontListing(){
+    public void fontListing() {
         TextSupport.availableFonts().forEach(System.out::println);
     }
 

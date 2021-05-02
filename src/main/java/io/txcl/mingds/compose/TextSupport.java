@@ -1,27 +1,19 @@
 package io.txcl.mingds.compose;
 
-// import AOMFringeGen.geometry.Contour;
-// import AOMFringeGen.geometry.boundary.Box;
-// import AOMFringeGen.render.PhaseContourRenderer;
-// import AOMFringeGen.util.Interp;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-
-import java.awt.Color;
+import io.txcl.mingds.record.base.GDSIIRecord;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import io.txcl.mingds.record.base.GDSIIRecord;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.commons.math3.util.CombinatoricsUtils;
 
@@ -116,7 +108,6 @@ public class TextSupport {
                         new Vector2D(raw[4], -raw[5])
                     };
 
-
             switch (type) {
                 case PathIterator.SEG_MOVETO:
                     {
@@ -162,12 +153,12 @@ public class TextSupport {
 
         for (int i = 0; i < contours.size(); i++) {
             List<Vector2D> thisContour = contours.get(i);
-            if(flattened.isEmpty()){
+            if (flattened.isEmpty()) {
                 flattened.addAll(thisContour);
                 continue;
             }
 
-            Vector2D lastPoint = flattened.get(flattened.size()-1);
+            Vector2D lastPoint = flattened.get(flattened.size() - 1);
             flattened.addAll(thisContour);
             flattened.add(lastPoint);
         }
@@ -182,7 +173,7 @@ public class TextSupport {
             PathIterator pathIterator =
                     gv.getGlyphOutline(i).getPathIterator(gv.getGlyphTransform(i));
             List<Vector2D> glyphPath = processPathIterator(pathIterator);
-            if(glyphPath.size() <= 2){
+            if (glyphPath.size() <= 2) {
                 continue;
             }
             lol.add(glyphPath);
@@ -193,13 +184,14 @@ public class TextSupport {
     public static int POINT_SIZE = 14;
 
     public static List<List<Vector2D>> textToPolygons(String text, double targetHeightMM) {
-            return textToPolygons(text, targetHeightMM, Vector2D.ZERO);
+        return textToPolygons(text, targetHeightMM, Vector2D.ZERO);
     }
 
-    public static List<List<Vector2D>> textToPolygons(String text, double targetHeightMM, Vector2D location){
+    public static List<List<Vector2D>> textToPolygons(
+            String text, double targetHeightMM, Vector2D location) {
         // This constant makes me kinda angry, but this is the world we live in so... yolo:
         // https://en.wikipedia.org/wiki/Point_(typography)
-        double startHeightMM = POINT_SIZE * 0.3527 * 2 ;
+        double startHeightMM = POINT_SIZE * 0.3527 * 2;
         double scale = targetHeightMM / startHeightMM;
         AffineTransform xform = AffineTransform.getScaleInstance(scale, scale);
         xform.translate(location.getX(), location.getY());
@@ -207,16 +199,24 @@ public class TextSupport {
         Font font = new Font("Noto Mono", Font.PLAIN, POINT_SIZE).deriveFont(xform);
 
         // GlyphVector glyphVector = font.createGlyphVector(fontRenderContext, text);
-        GlyphVector glyphVector = font.layoutGlyphVector(fontRenderContext, text.toCharArray(), 0, text.length(), Font.LAYOUT_LEFT_TO_RIGHT);
+        GlyphVector glyphVector =
+                font.layoutGlyphVector(
+                        fontRenderContext,
+                        text.toCharArray(),
+                        0,
+                        text.length(),
+                        Font.LAYOUT_LEFT_TO_RIGHT);
         // TODO(meawoppl) resize here...
         return TextSupport.spoolGlyphVector(glyphVector);
     }
 
     public static List<String> availableFonts() {
-        return Lists.newArrayList(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
+        return Lists.newArrayList(
+                GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
     }
 
-    public static Stream<GDSIIRecord<?>> textToPolygonRecords(String text, double heightMM, Vector2D location){
+    public static Stream<GDSIIRecord<?>> textToPolygonRecords(
+            String text, double heightMM, Vector2D location) {
         return PolygonStream.ofPolygons(textToPolygons(text, heightMM, location).stream());
     }
 }
