@@ -12,9 +12,12 @@ public class XY extends IntRecord {
     public XY(List<Vector2D> points) {
         super(new byte[4 * 2 * points.size()], RecordType.XY);
         // Check maximum point count
-        Preconditions.checkArgument(points.size() <= 50);
+        Preconditions.checkArgument(points.size() <= 1000, String.format("Expected <50 points, got %d", points.size()));
         // Make sure first and last point are the same
-        Preconditions.checkArgument(points.get(0).equals(points.get(points.size() - 1)));
+        Preconditions.checkArgument(points.size() >= 2, String.format("Path with %d elements?", points.size()));
+        Vector2D first = points.get(0);
+        Vector2D last = points.get(points.size() - 1);
+        Preconditions.checkArgument(first.equals(last));
 
         for (int i = 0; i < points.size(); i++) {
             Vector2D v = points.get(i);

@@ -70,7 +70,7 @@ public class Render {
      * This is a small wrapper to make sure graphics calls get antialiasing and that the graphics
      * context itself is properly cleaned up.
      */
-    private void doGraphics(Consumer<Graphics2D> callable) {
+    public void doGraphics(Consumer<Graphics2D> callable) {
         Graphics2D g = this.bi.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(
@@ -111,6 +111,28 @@ public class Render {
                         int[] b = mapPointToPix(points.get(i + 1));
                         g.drawLine(a[0], a[1], b[0], b[1]);
                     }
+                });
+    }
+
+    /**
+     * Stroke all of the segments in `segments` with the `color` specified.
+     *
+     * @param contour to color
+     * @param color Color to apply to segments
+     */
+    public void fillSegments(List<Vector2D> points, Color color) {
+        int[] xs = new int[points.size()];
+        int[] ys = new int[points.size()];
+        for (int i = 0; i < points.size(); i++) {
+            int[] xy = mapPointToPix(points.get(i));
+            xs[i] = xy[0];
+            ys[i] = xy[1];
+        }
+
+        doGraphics(
+                (g) -> {
+                    g.setColor(color);
+                    g.fillPolygon(xs, ys, xs.length);
                 });
     }
 
