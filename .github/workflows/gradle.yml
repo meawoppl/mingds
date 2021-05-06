@@ -20,7 +20,7 @@ jobs:
         distribution: 'adopt'
         java-version: 11
 
-    - name: Install wine (exe conversion test)
+    - name: Install KLayout (validation testing)
       run: sudo apt-get install klayout
 
     - name: Grant execute permission for gradlew
