@@ -59,6 +59,10 @@ public abstract class GDSIIRecord<E> extends CommonToken {
         return bytes;
     }
 
+    public int getRecordSize() {
+        return bytes.length + 4;
+    }
+
     public void setBytes(byte[] bytes) {
         if (getElementSize() == 0) {
             Preconditions.checkArgument(bytes.length == 0);
