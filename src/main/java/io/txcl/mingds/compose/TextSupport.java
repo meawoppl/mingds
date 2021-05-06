@@ -2,7 +2,7 @@ package io.txcl.mingds.compose;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import io.txcl.mingds.record.base.GDSIIRecord;
+import io.txcl.mingds.stream.GDSStream;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.font.FontRenderContext;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.apache.commons.math3.util.CombinatoricsUtils;
 
@@ -215,8 +214,7 @@ public class TextSupport {
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
     }
 
-    public static Stream<GDSIIRecord<?>> textToPolygonRecords(
-            String text, double heightMM, Vector2D location) {
-        return PolygonStream.ofPolygons(textToPolygons(text, heightMM, location).stream());
+    public static GDSStream textToPolygonRecords(String text, double heightMM, Vector2D location) {
+        return PolygonStream.ofPolygons(0, textToPolygons(text, heightMM, location).stream());
     }
 }

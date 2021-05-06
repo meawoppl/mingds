@@ -11,4 +11,8 @@ public class StrName extends AsciiRecord {
     public StrName(String name) {
         super(name, RecordType.STRNAME);
     }
+
+    public String getName() {
+        return getElement(0);
+    }
 }

@@ -15,7 +15,7 @@ public class NoDataTests {
 
     @Test
     public void testSimple() {
-        Assertions.assertEquals(8, findNoDataRecords().count());
+        Assertions.assertEquals(9, findNoDataRecords().count());
     }
 
     @Test

@@ -4,16 +4,26 @@ import com.google.common.base.Preconditions;
 import io.txcl.mingds.record.base.IntRecord;
 import io.txcl.mingds.record.base.RecordType;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class XY extends IntRecord {
+    public static final int MAX_XYS = 8191;
+    public static final AtomicBoolean oversizeWarning = new AtomicBoolean(false);
+
     public XY(List<Vector2D> points) {
         super(new byte[4 * 2 * points.size()], RecordType.XY);
         // Check maximum point count
+        if (points.size() > 50 && !oversizeWarning.get()) {
+            System.err.println("Warning: XY with more than 50 points. This limits compatibility");
+            oversizeWarning.set(true);
+        }
+
         Preconditions.checkArgument(
-                points.size() <= 1000, String.format("Expected <50 points, got %d", points.size()));
+                points.size() <= MAX_XYS,
+                String.format("Expected <= %d points, got %d", MAX_XYS, points.size()));
         // Make sure first and last point are the same
         Preconditions.checkArgument(
                 points.size() >= 2, String.format("Path with %d elements?", points.size()));

@@ -1,7 +1,7 @@
 package io.txcl.mingds.compose;
 
 import io.txcl.mingds.render.Render;
-import io.txcl.mingds.stream.GDSIIStream;
+import io.txcl.mingds.stream.GDSStream;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
@@ -75,6 +75,6 @@ public class TextSupportTest {
     @Test
     public void testFontToGDSII() throws Exception {
         List<List<Vector2D>> foo = TextSupport.textToPolygons("Foo Bar Baz", 10);
-        GDSIIStream.to(Path.of("texttest.gds"), PolygonStream.ofPolygons(foo.stream()));
+        GDSStream.to(Path.of("texttest.gds"), PolygonStream.ofPolygons(0, foo.stream()));
     }
 }

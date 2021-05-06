@@ -7,6 +7,9 @@ import io.txcl.mingds.record.base.ShortRecord;
 public class Header extends ShortRecord {
     public Header() {
         this(new byte[2]);
+
+        // Most modern GDS files report version 2 (GDSII...)
+        setVersion(2);
     }
 
     public Header(byte[] bytes) {

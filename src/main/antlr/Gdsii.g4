@@ -66,4 +66,4 @@ element: (boundaryElement | pathElement | srefElement | arefElement | textElemen
 structure: bgnstr strname strclass? element* endstr;
 
 formatType: format | (format mask+ endmasks);
-stream: header bgnlib libname reflibs? fonts? attrtable? generations? formatType? units structure+ endlib;
+stream: header bgnlib libname reflibs? fonts? attrtable? generations? formatType? units structure* endlib;
