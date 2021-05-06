@@ -29,7 +29,7 @@ public class KLayoutValidator extends ValidatorBase {
 
         boolean success = false;
         try {
-            success = Runtime.getRuntime().exec("klayout -h").waitFor() == 0;
+            success = Runtime.getRuntime().exec("klayout -zz -h").waitFor() == 0;
         } catch (Exception e) {
             System.err.println("Error while detecting klayout:");
             e.printStackTrace();
