@@ -88,10 +88,8 @@ public class KLayoutValidator extends ValidatorBase {
             // Read the output from the command
             System.out.println("Here is the standard output of the command:\n");
             try {
-                System.out.println("STDOUT:");
-                printInputStream(exec.getInputStream());
-                System.out.println("STDERR:");
-                printInputStream(exec.getErrorStream());
+                printInputStream(exec.getInputStream(), "STDOUT:");
+                printInputStream(exec.getErrorStream(), "STDERR:");
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new ValidationException(e);
@@ -101,7 +99,8 @@ public class KLayoutValidator extends ValidatorBase {
         }
     }
 
-    public void printInputStream(InputStream inputStream) throws IOException {
+    public void printInputStream(InputStream inputStream, String header) throws IOException {
+        System.out.println(header);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String s;
         while((s = reader.readLine()) != null){
