@@ -13,23 +13,23 @@ import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class GDSIIIterator implements Iterator<GDSIIRecord<?>> {
+public class GDSIterator implements Iterator<GDSIIRecord<?>> {
     private final DataInputStream dis;
     private final AtomicInteger ai;
 
-    public static GDSIIIterator fromBytes(byte[] bytes) {
+    public static GDSIterator fromBytes(byte[] bytes) {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         DataInputStream dis = new DataInputStream(bis);
-        return new GDSIIIterator(dis);
+        return new GDSIterator(dis);
     }
 
-    public static GDSIIIterator fromPath(Path path) throws FileNotFoundException {
+    public static GDSIterator fromPath(Path path) throws FileNotFoundException {
         FileInputStream fis = new FileInputStream(path.toFile());
         DataInputStream dis = new DataInputStream(fis);
-        return new GDSIIIterator(dis);
+        return new GDSIterator(dis);
     }
 
-    public GDSIIIterator(DataInputStream dis) {
+    public GDSIterator(DataInputStream dis) {
         this.dis = dis;
         this.ai = new AtomicInteger(0);
     }

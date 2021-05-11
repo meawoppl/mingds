@@ -2,8 +2,8 @@ package io.txcl.mingds.validate;
 
 import io.txcl.mingds.GdsiiParser;
 import io.txcl.mingds.stream.GDSStream;
-import io.txcl.mingds.stream.ThrowingErrorListener;
 import io.txcl.mingds.validate.antlr.GDSTokenSource;
+import io.txcl.mingds.validate.antlr.ThrowingErrorListener;
 import java.io.IOException;
 import java.nio.file.Path;
 import org.antlr.v4.runtime.CommonToken;

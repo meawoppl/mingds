@@ -20,7 +20,7 @@ public class GDSIIIteratorTest extends GDSTestFiles {
     @ParameterizedTest
     @MethodSource("getTestPaths")
     public void testStreamWriting(Path path) throws Exception {
-        GDSIIIterator iter = GDSIIIterator.fromPath(path);
+        GDSIterator iter = GDSIterator.fromPath(path);
         while (iter.hasNext()) {
             byte[] encoded = iter.nextBlock();
             GDSIIRecord<?> rec = GDSIIRecord.deserialize(encoded);

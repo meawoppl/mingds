@@ -2,7 +2,6 @@ package io.txcl.mingds.record.base;
 
 import com.google.common.base.Preconditions;
 import io.txcl.mingds.format.ByteMunging;
-import io.txcl.mingds.parse.RecordParseToken;
 import io.txcl.mingds.record.Angle;
 import io.txcl.mingds.record.BgnLib;
 import io.txcl.mingds.record.BgnStr;
@@ -111,11 +110,6 @@ public abstract class GDSIIRecord<E> extends CommonToken {
             return 0;
         }
         return this.bytes.length / getElementSize();
-    }
-
-    public RecordParseToken getParseToken() {
-        RecordType rt = getRecordType();
-        return new RecordParseToken(rt.getParseTokenID(), rt.name(), this);
     }
 
     public byte[] serialize() {

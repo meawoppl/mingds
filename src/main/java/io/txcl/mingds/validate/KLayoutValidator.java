@@ -5,6 +5,7 @@ import io.txcl.mingds.stream.GDSStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,9 +16,7 @@ public class KLayoutValidator extends ValidatorBase {
 
     public static final String ANCHOR = "REPLACEME";
     public static final String CHECK_CODE =
-            "import pya; layout = pya.Layout(); layout.read(\""
-                    + ANCHOR
-                    + "\"); print(\"SUCCESS\")\n";
+            "import pya; layout = pya.Layout(); layout.read('" + ANCHOR + "'); print('SUCCESS')\n";
 
     private static final AtomicBoolean KLAYOUT_AVAILABLE = new AtomicBoolean(false);
 
@@ -46,17 +45,13 @@ public class KLayoutValidator extends ValidatorBase {
             GDSStream.to(Path.of(tempFile.getPath()), stream);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new ValidationException("Unable to stream gds to tempfile?");
+            throw new ValidationException("Unable to stream gds to temporary file?");
         }
 
         validate(tempFile.toPath());
     }
 
-    @Override
-    public void validate(Path path) throws ValidationException {
-        Preconditions.checkArgument(
-                isKLayoutAvailable(), "This validator requires klayout is available");
-
+    public Path makeScriptTemp(Path path) throws ValidationException {
         // Make a tempdir with the script:
         File tempFile;
         try {
@@ -68,11 +63,21 @@ public class KLayoutValidator extends ValidatorBase {
             throw new ValidationException(e);
         }
 
+        return tempFile.getAbsoluteFile().toPath();
+    }
+
+    @Override
+    public void validate(Path path) throws ValidationException {
+        Preconditions.checkArgument(
+                isKLayoutAvailable(), "This validator requires klayout is available");
+
+        Path script = makeScriptTemp(path);
+
         Process exec = null;
         try {
             exec =
                     Runtime.getRuntime()
-                            .exec("klayout -zz -r " + tempFile.getAbsolutePath().toString());
+                            .exec("klayout -zz -r " + script.toString());
             exec.waitFor();
         } catch (Exception e) {
             System.err.println("Problem running klayout?");
@@ -80,25 +85,13 @@ public class KLayoutValidator extends ValidatorBase {
         }
 
         if (exec.exitValue() != 0) {
-            BufferedReader stdInput =
-                    new BufferedReader(new InputStreamReader(exec.getInputStream()));
-
-            BufferedReader stdError =
-                    new BufferedReader(new InputStreamReader(exec.getErrorStream()));
-
             // Read the output from the command
             System.out.println("Here is the standard output of the command:\n");
-            String s = null;
             try {
-                while ((s = stdInput.readLine()) != null) {
-                    System.out.println(s);
-                }
-
-                // Read any errors from the attempted command
-                System.out.println("Here is the standard error of the command (if any):\n");
-                while ((s = stdError.readLine()) != null) {
-                    System.out.println(s);
-                }
+                System.out.println("STDOUT:");
+                printInputStream(exec.getInputStream());
+                System.out.println("STDERR:");
+                printInputStream(exec.getErrorStream());
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new ValidationException(e);
@@ -107,4 +100,13 @@ public class KLayoutValidator extends ValidatorBase {
             throw new ValidationException("File did not validate.");
         }
     }
+
+    public void printInputStream(InputStream inputStream) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String s;
+        while((s = reader.readLine()) != null){
+            System.out.println(s);
+        }
+    }
+
 }
