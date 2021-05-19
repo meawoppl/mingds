@@ -64,11 +64,11 @@ public class GDSStream implements Stream<GDSIIRecord<?>> {
     }
 
     public static GDSStream from(Path path) throws IOException {
-        return of(GDSIIIterator.fromPath(path));
+        return of(GDSIterator.fromPath(path));
     }
 
     public static GDSStream from(byte[] bytes) {
-        return of(GDSIIIterator.fromBytes(bytes));
+        return of(GDSIterator.fromBytes(bytes));
     }
 
     public static void to(Path path, GDSStream recordStream) throws IOException {
