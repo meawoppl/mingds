@@ -28,7 +28,7 @@ public class TextSupport {
         Vector2D term0 = cp.scalarMultiply(bernPoly(2, 0, t));
         Vector2D term1 = p1.scalarMultiply(bernPoly(2, 1, t));
         Vector2D term2 = p2.scalarMultiply(bernPoly(2, 2, t));
-        return term0.add(term1).add(term2);
+        return sum(term0, term1, term2);
     }
 
     private static Vector2D cubicMath(
@@ -37,7 +37,15 @@ public class TextSupport {
         Vector2D term1 = p1.scalarMultiply(bernPoly(3, 1, t));
         Vector2D term2 = p2.scalarMultiply(bernPoly(3, 2, t));
         Vector2D term3 = p3.scalarMultiply(bernPoly(3, 3, t));
-        return term0.add(term1).add(term2).add(term3);
+        return sum(term0, term1, term2, term3);
+    }
+
+    private static Vector2D sum(Vector2D... vecs) {
+        Vector2D rVal = Vector2D.ZERO;
+        for (int i = 0; i < vecs.length; i++) {
+            rVal = rVal.add(vecs[i]);
+        }
+        return rVal;
     }
 
     private static Vector2D splineMath(Vector2D[] pts, double t) {

@@ -14,6 +14,12 @@ public class DType extends ShortRecord {
         Preconditions.checkArgument(bytes.length == 2);
     }
 
+    public static DType of(int value) {
+        final DType dType = new DType();
+        dType.setDataType(value);
+        return dType;
+    }
+
     public int getDType() {
         return getElement(0);
     }
