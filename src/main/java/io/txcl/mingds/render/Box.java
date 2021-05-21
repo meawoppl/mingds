@@ -17,6 +17,7 @@ public class Box {
     }
 
     public static Box covering(List<Vector2D> points) {
+        Preconditions.checkArgument(points.size() > 0);
         DoubleSummaryStatistics xss =
                 points.stream().mapToDouble(Vector2D::getX).summaryStatistics();
         DoubleSummaryStatistics yss =

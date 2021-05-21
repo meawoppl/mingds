@@ -67,6 +67,10 @@ public class GDSStream implements Stream<GDSIIRecord<?>> {
         return of(GDSIterator.fromPath(path));
     }
 
+    public static GDSStream empty() {
+        return of(Stream.empty());
+    }
+
     public static GDSStream from(byte[] bytes) {
         return of(GDSIterator.fromBytes(bytes));
     }

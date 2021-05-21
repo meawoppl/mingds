@@ -18,7 +18,6 @@ public class TextSupportTest {
 
     @Test
     public void testTextRender() {
-
         Vector2D lower = new Vector2D(-10, -10);
         Vector2D upper = new Vector2D(10, 10);
 

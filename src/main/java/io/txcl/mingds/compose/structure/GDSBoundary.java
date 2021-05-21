@@ -1,5 +1,6 @@
 package io.txcl.mingds.compose.structure;
 
+import com.google.common.base.Preconditions;
 import io.txcl.mingds.record.Boundary;
 import io.txcl.mingds.record.DType;
 import io.txcl.mingds.record.XY;
@@ -16,6 +17,10 @@ public class GDSBoundary extends GDSElement {
         super(BOUNDARY);
         super.setLayer(layer);
         this.points = points;
+
+        Vector2D first = points.get(0);
+        Vector2D last = points.get(points.size() - 1);
+        Preconditions.checkArgument(first.equals(last));
     }
 
     @Override

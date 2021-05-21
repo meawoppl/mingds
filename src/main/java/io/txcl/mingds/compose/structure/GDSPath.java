@@ -1,19 +1,20 @@
 package io.txcl.mingds.compose.structure;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import io.txcl.mingds.record.*;
 import io.txcl.mingds.stream.GDSStream;
-import java.util.ArrayList;
+import io.txcl.mingds.support.PathDecoder;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
+import java.awt.geom.PathIterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class GDSPath extends GDSElement {
-    private static final int DISPLAY_QUANT = 9;
     private final int dataType;
     private final int pathType;
     private final int width;
@@ -33,93 +34,29 @@ public class GDSPath extends GDSElement {
         return GDSStream.of(DType.of(dataType), PathType.of(pathType), Width.of(width), new XY(xy));
     }
 
-    @VisibleForTesting
-    protected double getHalfWidth(){
-        return width / 2.0;
-    }
-
-    @VisibleForTesting
-    protected static Vector2D disp(Vector2D a, Vector2D b) {
-        System.out.println(a);
-        System.out.println(b);
-        return b.subtract(a).normalize();
-    }
-
-    @VisibleForTesting
-    protected static Vector2D normalTo(Vector2D a, Vector2D b) {
-        Vector2D dir = disp(a, b);
-        return new Vector2D(-dir.getY(), dir.getX());
-    }
-
-    private List<Vector2D> doEndCap(Vector2D a, Vector2D b) {
-        List<Vector2D> pts = new ArrayList<>();
-        final Vector2D norm = normalTo(a, b);
-        final Vector2D disp = disp(a, b);
-
-        switch (pathType) {
-            case 0:
-                // No cap
-                return pts;
-            case 1:
-                // Cap that standsoff by half-width
-                pts.add(b.add(norm).add(disp));
-                return pts;
-            case 2:
-                // Rounded cap
-                return IntStream.range(1, DISPLAY_QUANT + 1)
-                        .mapToDouble(i -> Math.PI * i / DISPLAY_QUANT)
-                        .mapToObj(
-                                theta ->
-                                        b.add(norm.scalarMultiply(Math.cos(theta)))
-                                                .add(disp.scalarMultiply(Math.sin(theta))))
-                        .collect(Collectors.toList());
-        }
-
-        throw new RuntimeException(
-                String.format("Value %d is not a valid end cap style", pathType));
-    }
-
-    private List<Vector2D> traceRight(List<Vector2D> xy) {
-        List<Vector2D> pts = new ArrayList<>();
-
-        for (int i = 0; i < xy.size() - 1; i++) {
-            Vector2D a = xy.get(i);
-            Vector2D b = xy.get(i + 1);
-
-            Vector2D norm = normalTo(a, b);
-            Vector2D disp = norm.scalarMultiply(getHalfWidth());
-
-            if (i == 0) {
-                pts.add(a.add(disp));
-            }
-
-            pts.add(b.add(disp));
-        }
-
-        return pts;
-    }
-
-    private List<Vector2D> halfTrace(List<Vector2D> xys) {
-        // Loop along the right edge
-        List<Vector2D> pts = new ArrayList<>(traceRight(xys));
-
-        Vector2D e1 = xy.get(xys.size() - 2);
-        Vector2D e2 = xy.get(xys.size() - 1);
-
-        // Cap it
-        pts.addAll(doEndCap(e1, e2));
-
-        return pts;
-    }
-
     @Override
     public void render(Consumer<List<Vector2D>> renderPolygon) {
+        // TODO(meawoppl) foist to static
+        Map<Integer, Integer> gdsPathTypeToAwtCapType = new HashMap<>();
+        gdsPathTypeToAwtCapType.put(0, BasicStroke.CAP_BUTT);
+        gdsPathTypeToAwtCapType.put(1, BasicStroke.CAP_SQUARE);
+        gdsPathTypeToAwtCapType.put(2, BasicStroke.CAP_ROUND);
 
-        renderPolygon.accept(xy);
+        BasicStroke stroke =
+                new BasicStroke(
+                        width, gdsPathTypeToAwtCapType.get(pathType), pathType== 2? BasicStroke.JOIN_ROUND : BasicStroke.JOIN_MITER);
 
-        List<Vector2D> pts = new ArrayList<>();
-        pts.addAll(halfTrace(xy));
-        pts.addAll(halfTrace(Lists.reverse(xy)));
-        renderPolygon.accept(pts);
+        Path2D.Double path = new Path2D.Double();
+        path.setWindingRule(Path2D.WIND_NON_ZERO);
+        Vector2D first = xy.get(0);
+        path.moveTo(first.getX(), first.getY());
+        xy.forEach(v -> path.lineTo(v.getX(), v.getY()));
+
+        Shape outlineShape = stroke.createStrokedShape(path);
+        PathIterator pathIterator =
+                outlineShape.getPathIterator(new AffineTransform(1, 0, 0, -1, 0, 0));
+
+        List<List<Vector2D>> polygons = PathDecoder.processPathIterator(pathIterator);
+        polygons.forEach(renderPolygon);
     }
 }

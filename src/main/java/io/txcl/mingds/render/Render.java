@@ -7,6 +7,7 @@ import io.txcl.mingds.record.base.GDSIIRecord;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class Render {
 
         Box box = Box.covering(pts).paddedToSquare().paddedPercent(0.1);
         final Render render = new Render(box, size);
-        element.render(segs -> render.strokeSegments(segs, Color.BLUE));
+        element.render(segs -> render.fillSegments(segs, Color.BLUE));
 
         return render;
     }
@@ -70,9 +71,7 @@ public class Render {
         Render render = new Render(box, size);
 
         xyRecs.forEach(
-                xy -> {
-                    render.strokeSegments(xy.getXYs().collect(Collectors.toList()), Color.BLUE);
-                });
+                xy -> render.strokeSegments(xy.getXYs().collect(Collectors.toList()), Color.BLUE));
 
         return render;
     }
@@ -128,22 +127,23 @@ public class Render {
     /**
      * Stroke all of the segments in `segments` with the `color` specified.
      *
-     * @param contour to color
+     * @param points that make up a closed contour.
      * @param color Color to apply to segments
      */
     public void fillSegments(List<Vector2D> points, Color color) {
-        int[] xs = new int[points.size()];
-        int[] ys = new int[points.size()];
-        for (int i = 0; i < points.size(); i++) {
-            int[] xy = mapPointToPix(points.get(i));
-            xs[i] = xy[0];
-            ys[i] = xy[1];
+        final GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
+        int[] first = mapPointToPix(points.get(0));
+        path.moveTo(first[0], first[1]);
+
+        for (Vector2D point : points) {
+            int[] xy = mapPointToPix(point);
+            path.lineTo(xy[0], xy[1]);
         }
 
         doGraphics(
                 (g) -> {
                     g.setColor(color);
-                    g.fillPolygon(xs, ys, xs.length);
+                    g.fill(path);
                 });
     }
 
