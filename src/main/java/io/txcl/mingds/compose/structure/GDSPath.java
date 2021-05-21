@@ -44,7 +44,9 @@ public class GDSPath extends GDSElement {
 
         BasicStroke stroke =
                 new BasicStroke(
-                        width, gdsPathTypeToAwtCapType.get(pathType), pathType== 2? BasicStroke.JOIN_ROUND : BasicStroke.JOIN_MITER);
+                        width,
+                        gdsPathTypeToAwtCapType.get(pathType),
+                        pathType == 2 ? BasicStroke.JOIN_ROUND : BasicStroke.JOIN_MITER);
 
         Path2D.Double path = new Path2D.Double();
         path.setWindingRule(Path2D.WIND_NON_ZERO);

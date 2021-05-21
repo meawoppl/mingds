@@ -35,7 +35,8 @@ class GDSPathTest {
         Render render = new Render(box, 512);
 
         List<Vector2D> points =
-                Lists.newArrayList(new Vector2D(25, 25), new Vector2D(75, 25), new Vector2D(75, 35));
+                Lists.newArrayList(
+                        new Vector2D(25, 25), new Vector2D(75, 25), new Vector2D(75, 35));
 
         // Round caps
         {
@@ -57,7 +58,7 @@ class GDSPathTest {
             final List<Vector2D> moved = shifted(points, new Vector2D(0, 50));
             final GDSPath path = new GDSPath(0, 0, 5, moved);
             path.render((poly) -> render.fillSegments(poly, Color.BLUE));
-            render.strokeSegments(moved ,Color.RED);
+            render.strokeSegments(moved, Color.RED);
         }
 
         BufferedImage bi = render.getBi();
