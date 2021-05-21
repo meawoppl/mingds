@@ -1,16 +1,18 @@
 package io.txcl.mingds.render;
 
 import com.google.common.base.Preconditions;
+import io.txcl.mingds.compose.structure.GDSElement;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.DoubleSummaryStatistics;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -24,6 +26,10 @@ public class Render {
     private final Vector2D upper;
 
     private final BufferedImage bi;
+
+    public Render(Box box, int size) {
+        this(box.getLower(), box.getUpper(), size);
+    }
 
     public Render(Vector2D lower, Vector2D upper, int size) {
         this.lower = lower;
@@ -41,6 +47,17 @@ public class Render {
                 });
     }
 
+    public static Render forElement(GDSElement element, int size) {
+        List<Vector2D> pts = new ArrayList<>();
+        element.render(pts::addAll);
+
+        Box box = Box.covering(pts).paddedToSquare().paddedPercent(0.1);
+        final Render render = new Render(box, size);
+        element.render(segs -> render.fillSegments(segs, Color.BLUE));
+
+        return render;
+    }
+
     public static Render forRecords(List<? extends GDSIIRecord<?>> records, int size) {
         List<XY> xyRecs =
                 records.stream()
@@ -48,20 +65,13 @@ public class Render {
                         .map(r -> (XY) r)
                         .collect(Collectors.toList());
         List<Vector2D> xyVecs = xyRecs.stream().flatMap(XY::getXYs).collect(Collectors.toList());
-        DoubleSummaryStatistics xss =
-                xyVecs.stream().mapToDouble(Vector2D::getX).summaryStatistics();
-        DoubleSummaryStatistics yss =
-                xyVecs.stream().mapToDouble(Vector2D::getY).summaryStatistics();
 
-        Vector2D lower = new Vector2D(xss.getMin(), yss.getMin());
-        Vector2D upper = new Vector2D(xss.getMax(), yss.getMax());
+        final Box box = Box.covering(xyVecs);
 
-        Render render = new Render(lower, upper, size);
+        Render render = new Render(box, size);
 
         xyRecs.forEach(
-                xy -> {
-                    render.strokeSegments(xy.getXYs().collect(Collectors.toList()), Color.BLUE);
-                });
+                xy -> render.strokeSegments(xy.getXYs().collect(Collectors.toList()), Color.BLUE));
 
         return render;
     }
@@ -117,22 +127,23 @@ public class Render {
     /**
      * Stroke all of the segments in `segments` with the `color` specified.
      *
-     * @param contour to color
+     * @param points that make up a closed contour.
      * @param color Color to apply to segments
      */
     public void fillSegments(List<Vector2D> points, Color color) {
-        int[] xs = new int[points.size()];
-        int[] ys = new int[points.size()];
-        for (int i = 0; i < points.size(); i++) {
-            int[] xy = mapPointToPix(points.get(i));
-            xs[i] = xy[0];
-            ys[i] = xy[1];
+        final GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
+        int[] first = mapPointToPix(points.get(0));
+        path.moveTo(first[0], first[1]);
+
+        for (Vector2D point : points) {
+            int[] xy = mapPointToPix(point);
+            path.lineTo(xy[0], xy[1]);
         }
 
         doGraphics(
                 (g) -> {
                     g.setColor(color);
-                    g.fillPolygon(xs, ys, xs.length);
+                    g.fill(path);
                 });
     }
 

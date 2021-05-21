@@ -6,19 +6,19 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TextSupportTest {
 
     @Test
     public void testTextRender() {
-
         Vector2D lower = new Vector2D(-10, -10);
         Vector2D upper = new Vector2D(10, 10);
 
@@ -31,7 +31,7 @@ public class TextSupportTest {
                     GlyphVector glyphVector =
                             font.layoutGlyphVector(
                                     fontRenderContext,
-                                    "dif".toCharArray(),
+                                    "foo".toCharArray(),
                                     0,
                                     3,
                                     Font.LAYOUT_LEFT_TO_RIGHT);
@@ -42,7 +42,8 @@ public class TextSupportTest {
                     // g2d.drawGlyphVector(glyphVector, 40, 60);
                 });
 
-        pcr.saveAsPNG(Paths.get("footest.png"));
+        final BufferedImage bi = pcr.getBi();
+        Assertions.assertNotNull(bi);
     }
 
     @Test

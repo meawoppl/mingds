@@ -2,6 +2,8 @@ package io.txcl.mingds.validate;
 
 import io.txcl.mingds.GDSTestFiles;
 import io.txcl.mingds.compose.GDSBuilder;
+import io.txcl.mingds.record.PropAttr;
+import io.txcl.mingds.record.PropValue;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class RecordValidatorTest extends GDSTestFiles {
 
     @ParameterizedTest
     @MethodSource("getTestPaths")
-    public void testFailingGrammar(Path p) throws Exception, ValidationException {
+    public void testFailingGrammar(Path p) throws Exception {
         List<GDSIIRecord<?>> records = GDSStream.from(p).collect(Collectors.toList());
         Collections.shuffle(records, new Random(3));
         Assertions.assertThrows(
@@ -44,5 +46,28 @@ public class RecordValidatorTest extends GDSTestFiles {
         Path gds = path.resolve("minimal.gds");
         GDSStream.to(gds, GDSBuilder.empty().stream());
         new RecordValidator().validate(gds);
+    }
+
+    @Test
+    public void testValidateRuleName_Valid() throws ValidationException {
+        final GDSStream stream =
+                GDSStream.of(new PropAttr(new byte[] {0, 1}), new PropValue("barr".getBytes()));
+        RecordValidator.validateAgainstRuleName(stream, "property");
+    }
+
+    @Test
+    public void testValidateRuleName_Invalid() {
+        final GDSStream stream =
+                GDSStream.of(new PropValue("barr".getBytes()), new PropAttr(new byte[] {0, 1}));
+        Assertions.assertThrows(
+                ValidationException.class,
+                () -> RecordValidator.validateAgainstRuleName(stream, "property"));
+    }
+
+    @Test
+    public void testValidateRuleName_NotARule() throws ValidationException {
+        Assertions.assertThrows(
+                RuntimeException.class,
+                () -> RecordValidator.validateAgainstRuleName(GDSStream.empty(), "notARule"));
     }
 }

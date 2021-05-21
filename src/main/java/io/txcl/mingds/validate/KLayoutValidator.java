@@ -75,9 +75,7 @@ public class KLayoutValidator extends ValidatorBase {
 
         Process exec = null;
         try {
-            exec =
-                    Runtime.getRuntime()
-                            .exec("klayout -zz -r " + script.toString());
+            exec = Runtime.getRuntime().exec("klayout -zz -r " + script.toString());
             exec.waitFor();
         } catch (Exception e) {
             System.err.println("Problem running klayout?");
@@ -103,9 +101,8 @@ public class KLayoutValidator extends ValidatorBase {
         System.out.println(header);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String s;
-        while((s = reader.readLine()) != null){
+        while ((s = reader.readLine()) != null) {
             System.out.println(s);
         }
     }
-
 }

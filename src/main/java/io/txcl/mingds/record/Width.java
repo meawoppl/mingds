@@ -13,4 +13,10 @@ public class Width extends IntRecord {
     public int getWidth() {
         return getElement(1);
     }
+
+    public static Width of(int width) {
+        final Width w = new Width(new byte[4]);
+        w.setElement(0, width);
+        return w;
+    }
 }
