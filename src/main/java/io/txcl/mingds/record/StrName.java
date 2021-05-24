@@ -1,5 +1,6 @@
 package io.txcl.mingds.record;
 
+import io.txcl.mingds.format.ByteMunging;
 import io.txcl.mingds.record.base.AsciiRecord;
 import io.txcl.mingds.record.base.RecordType;
 
@@ -13,6 +14,6 @@ public class StrName extends AsciiRecord {
     }
 
     public String getName() {
-        return getElement(0);
+        return ByteMunging.toJavaString(getBytes());
     }
 }

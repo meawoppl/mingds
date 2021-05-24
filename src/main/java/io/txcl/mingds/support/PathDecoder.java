@@ -12,30 +12,6 @@ import org.apache.commons.math3.util.CombinatoricsUtils;
 public class PathDecoder {
     private static final int FONT_QUANT = 10;
 
-    private static Vector2D quadMath(Vector2D cp, Vector2D p1, Vector2D p2, double t) {
-        Vector2D term0 = cp.scalarMultiply(PathDecoder.bernPoly(2, 0, t));
-        Vector2D term1 = p1.scalarMultiply(PathDecoder.bernPoly(2, 1, t));
-        Vector2D term2 = p2.scalarMultiply(PathDecoder.bernPoly(2, 2, t));
-        return sum(term0, term1, term2);
-    }
-
-    private static Vector2D cubicMath(
-            Vector2D cp, Vector2D p1, Vector2D p2, Vector2D p3, double t) {
-        Vector2D term0 = cp.scalarMultiply(PathDecoder.bernPoly(3, 0, t));
-        Vector2D term1 = p1.scalarMultiply(PathDecoder.bernPoly(3, 1, t));
-        Vector2D term2 = p2.scalarMultiply(PathDecoder.bernPoly(3, 2, t));
-        Vector2D term3 = p3.scalarMultiply(PathDecoder.bernPoly(3, 3, t));
-        return sum(term0, term1, term2, term3);
-    }
-
-    private static Vector2D sum(Vector2D... vecs) {
-        Vector2D rVal = Vector2D.ZERO;
-        for (Vector2D vec : vecs) {
-            rVal = rVal.add(vec);
-        }
-        return rVal;
-    }
-
     private static Vector2D splineMath(Vector2D[] pts, double t) {
         Vector2D summed = Vector2D.ZERO;
 
@@ -68,20 +44,6 @@ public class PathDecoder {
             ret[i] = lerp(start, stop, (double) i / (n - 1));
         }
         return ret;
-    }
-
-    private static List<Vector2D> quadTo(Vector2D cp, Vector2D p1, Vector2D p2) {
-        double[] ts = linspace(0, 1, PathDecoder.FONT_QUANT);
-        return Arrays.stream(ts)
-                .mapToObj(t -> quadMath(cp, p1, p2, t))
-                .collect(Collectors.toList());
-    }
-
-    private static List<Vector2D> cubeTo(Vector2D cp, Vector2D p1, Vector2D p2, Vector2D p3) {
-        double[] ts = linspace(0, 1, PathDecoder.FONT_QUANT);
-        return Arrays.stream(ts)
-                .mapToObj(t -> cubicMath(cp, p1, p2, p3, t))
-                .collect(Collectors.toList());
     }
 
     private static List<Vector2D> splineTo(Vector2D... points) {

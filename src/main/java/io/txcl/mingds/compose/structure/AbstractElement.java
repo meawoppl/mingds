@@ -9,27 +9,21 @@ import io.txcl.mingds.record.SRef;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
 import java.util.List;
-import java.util.function.Consumer;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-public abstract class GDSElement {
+public abstract class AbstractElement {
     private final GDSIIRecord<?> structureType;
     private ElFlags elflags;
     private Plex plex;
     private int layer;
 
-    public GDSElement(GDSIIRecord<?> structureType) {
+    public AbstractElement(GDSIIRecord<?> structureType) {
         this.structureType = structureType;
     }
 
     protected abstract GDSStream getContents();
 
-    /**
-     * Return a list of segments which represent a closed path. This path can be stroked/filled by
-     *
-     * @param renderPolygon
-     */
-    public abstract void render(Consumer<List<Vector2D>> renderPolygon);
+    public abstract List<List<Vector2D>> getPolygons();
 
     /**
      * Get a stream of records that represent this Structural instance

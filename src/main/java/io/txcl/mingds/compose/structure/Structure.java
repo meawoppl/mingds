@@ -1,6 +1,5 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.compose.structure;
 
-import io.txcl.mingds.compose.structure.GDSElement;
 import io.txcl.mingds.record.BgnStr;
 import io.txcl.mingds.record.EndStr;
 import io.txcl.mingds.record.StrName;
@@ -10,14 +9,14 @@ import java.util.List;
 
 public class Structure {
     private final StrName name;
-    private final List<GDSElement> elements;
+    private final List<AbstractElement> elements;
 
     public Structure(String name) {
         this.name = new StrName(name);
         this.elements = new ArrayList<>();
     }
 
-    public void addElement(GDSElement elementStream) {
+    public void addElement(AbstractElement elementStream) {
         elements.add(elementStream);
     }
 
@@ -27,7 +26,11 @@ public class Structure {
 
     public GDSStream stream() {
         return GDSStream.of(new BgnStr(), this.name)
-                .concat(elements.stream().flatMap(GDSElement::stream))
+                .concat(elements.stream().flatMap(AbstractElement::stream))
                 .concat(new EndStr());
+    }
+
+    public List<AbstractElement> getElements() {
+        return elements;
     }
 }

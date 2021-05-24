@@ -1,7 +1,7 @@
 package io.txcl.mingds.render;
 
 import com.google.common.base.Preconditions;
-import io.txcl.mingds.compose.structure.GDSElement;
+import io.txcl.mingds.compose.structure.AbstractElement;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import java.awt.Color;
@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -47,13 +47,15 @@ public class Render {
                 });
     }
 
-    public static Render forElement(GDSElement element, int size) {
-        List<Vector2D> pts = new ArrayList<>();
-        element.render(pts::addAll);
+    public static Render forElement(AbstractElement element, int size) {
+        List<Vector2D> pts =
+                element.getPolygons().stream()
+                        .flatMap(Collection::stream)
+                        .collect(Collectors.toList());
 
         Box box = Box.covering(pts).paddedToSquare().paddedPercent(0.1);
         final Render render = new Render(box, size);
-        element.render(segs -> render.fillSegments(segs, Color.BLUE));
+        element.getPolygons().forEach(poly -> render.fillSegments(poly, Color.BLUE));
 
         return render;
     }

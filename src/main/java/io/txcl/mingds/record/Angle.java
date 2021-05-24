@@ -9,6 +9,11 @@ public class Angle extends DoubleRecord {
         this(new byte[8]);
     }
 
+    public Angle(double angle) {
+        this();
+        setElement(0, angle);
+    }
+
     public Angle(byte[] bytes) {
         super(bytes, RecordType.ANGLE);
         Preconditions.checkArgument(bytes.length == 8);

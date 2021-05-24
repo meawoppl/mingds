@@ -24,9 +24,6 @@ public class XY extends IntRecord {
         Preconditions.checkArgument(
                 points.size() <= MAX_XYS,
                 String.format("Expected <= %d points, got %d", MAX_XYS, points.size()));
-        // Make sure first and last point are the same
-        Preconditions.checkArgument(
-                points.size() >= 2, String.format("Path with %d elements?", points.size()));
 
         for (int i = 0; i < points.size(); i++) {
             Vector2D v = points.get(i);

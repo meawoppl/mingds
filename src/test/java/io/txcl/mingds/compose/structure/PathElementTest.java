@@ -1,7 +1,5 @@
 package io.txcl.mingds.compose.structure;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.google.common.collect.Lists;
 import io.txcl.mingds.render.Box;
 import io.txcl.mingds.render.Render;
@@ -15,7 +13,7 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class GDSPathTest {
+class PathElementTest {
     private List<Vector2D> shifted(List<Vector2D> input, Vector2D shift) {
         return input.stream().map(v -> v.add(shift)).collect(Collectors.toList());
     }
@@ -25,7 +23,7 @@ class GDSPathTest {
         List<Vector2D> points =
                 Lists.newArrayList(new Vector2D(0, 0), new Vector2D(50, 0), new Vector2D(50, 35));
 
-        final GDSPath path = new GDSPath(0, 2, 5, points);
+        final PathElement path = new PathElement(0, 2, 5, points);
         RecordValidator.validateAgainstRuleName(path.stream(), "pathElement");
     }
 
@@ -40,24 +38,24 @@ class GDSPathTest {
 
         // Round caps
         {
-            final GDSPath path = new GDSPath(0, 2, 5, points);
-            path.render((poly) -> render.fillSegments(poly, Color.BLUE));
+            final PathElement path = new PathElement(0, 2, 5, points);
+            path.getPolygons().forEach((poly) -> render.fillSegments(poly, Color.BLUE));
             render.strokeSegments(points, Color.RED);
         }
 
         // Square caps
         {
             final List<Vector2D> moved = shifted(points, new Vector2D(0, 25));
-            final GDSPath path = new GDSPath(0, 1, 5, moved);
-            path.render((poly) -> render.fillSegments(poly, Color.BLUE));
+            final PathElement path = new PathElement(0, 1, 5, moved);
+            path.getPolygons().forEach((poly) -> render.fillSegments(poly, Color.BLUE));
             render.strokeSegments(moved, Color.RED);
         }
 
         // No caps
         {
             final List<Vector2D> moved = shifted(points, new Vector2D(0, 50));
-            final GDSPath path = new GDSPath(0, 0, 5, moved);
-            path.render((poly) -> render.fillSegments(poly, Color.BLUE));
+            final PathElement path = new PathElement(0, 0, 5, moved);
+            path.getPolygons().forEach((poly) -> render.fillSegments(poly, Color.BLUE));
             render.strokeSegments(moved, Color.RED);
         }
 

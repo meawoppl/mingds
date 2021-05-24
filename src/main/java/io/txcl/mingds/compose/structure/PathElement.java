@@ -11,16 +11,15 @@ import java.awt.geom.PathIterator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-public class GDSPath extends GDSElement {
+public class PathElement extends AbstractElement {
     private final int dataType;
     private final int pathType;
     private final int width;
     private final List<Vector2D> xy;
 
-    public GDSPath(int dataType, int pathType, int width, List<Vector2D> xy) {
+    public PathElement(int dataType, int pathType, int width, List<Vector2D> xy) {
         super(new Path());
         this.dataType = dataType;
         this.pathType = pathType;
@@ -35,7 +34,7 @@ public class GDSPath extends GDSElement {
     }
 
     @Override
-    public void render(Consumer<List<Vector2D>> renderPolygon) {
+    public List<List<Vector2D>> getPolygons() {
         // TODO(meawoppl) foist to static
         Map<Integer, Integer> gdsPathTypeToAwtCapType = new HashMap<>();
         gdsPathTypeToAwtCapType.put(0, BasicStroke.CAP_BUTT);
@@ -58,7 +57,6 @@ public class GDSPath extends GDSElement {
         PathIterator pathIterator =
                 outlineShape.getPathIterator(new AffineTransform(1, 0, 0, -1, 0, 0));
 
-        List<List<Vector2D>> polygons = PathDecoder.processPathIterator(pathIterator);
-        polygons.forEach(renderPolygon);
+        return PathDecoder.processPathIterator(pathIterator);
     }
 }

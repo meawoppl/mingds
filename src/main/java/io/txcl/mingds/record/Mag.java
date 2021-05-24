@@ -5,6 +5,17 @@ import io.txcl.mingds.record.base.DoubleRecord;
 import io.txcl.mingds.record.base.RecordType;
 
 public class Mag extends DoubleRecord {
+
+    public Mag() {
+        this(new byte[8]);
+        setElement(0, 1.0);
+    }
+
+    public Mag(double magnification) {
+        this(new byte[8]);
+        setElement(0, magnification);
+    }
+
     public Mag(byte[] bytes) {
         super(bytes, RecordType.MAG);
         Preconditions.checkArgument(
