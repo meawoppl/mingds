@@ -18,6 +18,7 @@ public class KLayoutValidator extends ValidatorBase {
     public static final String CHECK_CODE =
             "import pya; layout = pya.Layout(); layout.read('" + ANCHOR + "'); print('SUCCESS')\n";
 
+    public static final String BASE_FLAGS = "klayout -zz";
     private static final AtomicBoolean KLAYOUT_AVAILABLE = new AtomicBoolean(false);
 
     public static boolean isKLayoutAvailable() {
@@ -28,7 +29,7 @@ public class KLayoutValidator extends ValidatorBase {
 
         boolean success = false;
         try {
-            success = Runtime.getRuntime().exec("klayout -zz -h").waitFor() == 0;
+            success = Runtime.getRuntime().exec(BASE_FLAGS + " -h").waitFor() == 0;
         } catch (Exception e) {
             System.err.println("Error while detecting klayout:");
             e.printStackTrace();
@@ -75,7 +76,7 @@ public class KLayoutValidator extends ValidatorBase {
 
         Process exec = null;
         try {
-            exec = Runtime.getRuntime().exec("klayout -zz -r " + script.toString());
+            exec = Runtime.getRuntime().exec(BASE_FLAGS + " -r " + script.toString());
             exec.waitFor();
         } catch (Exception e) {
             System.err.println("Problem running klayout?");

@@ -6,14 +6,13 @@ import io.txcl.mingds.record.DType;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.stream.GDSStream;
 import java.util.List;
-import java.util.function.Consumer;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-public class GDSBoundary extends GDSElement {
+public class BoundaryElement extends AbstractElement {
     public static Boundary BOUNDARY = new Boundary();
     public final List<Vector2D> points;
 
-    public GDSBoundary(List<Vector2D> points, int layer) {
+    public BoundaryElement(List<Vector2D> points, int layer) {
         super(BOUNDARY);
         super.setLayer(layer);
         this.points = points;
@@ -29,7 +28,7 @@ public class GDSBoundary extends GDSElement {
     }
 
     @Override
-    public void render(Consumer<List<Vector2D>> renderPolygon) {
-        renderPolygon.accept(points);
+    public List<List<Vector2D>> getPolygons() {
+        return List.of(points);
     }
 }
