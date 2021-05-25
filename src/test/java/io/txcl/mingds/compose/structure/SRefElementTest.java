@@ -8,6 +8,7 @@ import io.txcl.mingds.validate.RecordValidator;
 import io.txcl.mingds.validate.ValidationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Collection;
 import java.util.List;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 import org.junit.jupiter.api.Assertions;
@@ -48,10 +49,18 @@ class SRefElementTest {
         Box box = new Box(new Vector2D(-10, -10), new Vector2D(10, 10));
         final Render render = new Render(box, 512);
 
-        scaled.getPolygons().forEach(poly -> render.fillSegments(poly, Color.GREEN));
-        pe.getPolygons().forEach(poly -> render.fillSegments(poly, Color.CYAN));
-        translated.getPolygons().forEach(poly -> render.fillSegments(poly, Color.BLUE));
-        rotated.getPolygons().forEach(poly -> render.fillSegments(poly, Color.BLUE));
+        scaled.getPolygons().values().stream()
+                .flatMap(Collection::stream)
+                .forEach(poly -> render.fillSegments(poly, Color.GREEN));
+        pe.getPolygons().values().stream()
+                .flatMap(Collection::stream)
+                .forEach(poly -> render.fillSegments(poly, Color.CYAN));
+        translated.getPolygons().values().stream()
+                .flatMap(Collection::stream)
+                .forEach(poly -> render.fillSegments(poly, Color.BLUE));
+        rotated.getPolygons().values().stream()
+                .flatMap(Collection::stream)
+                .forEach(poly -> render.fillSegments(poly, Color.BLUE));
 
         final BufferedImage bi = render.getBi();
         Assertions.assertNotNull(bi);

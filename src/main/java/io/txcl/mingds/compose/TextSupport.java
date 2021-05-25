@@ -66,7 +66,6 @@ public class TextSupport {
         FontRenderContext fontRenderContext = new FontRenderContext(xform, true, true);
         Font font = new Font("Noto Mono", Font.PLAIN, POINT_SIZE).deriveFont(xform);
 
-        // GlyphVector glyphVector = font.createGlyphVector(fontRenderContext, text);
         GlyphVector glyphVector =
                 font.layoutGlyphVector(
                         fontRenderContext,

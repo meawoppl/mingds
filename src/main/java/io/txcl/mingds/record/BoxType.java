@@ -14,6 +14,11 @@ public class BoxType extends ShortRecord {
         Preconditions.checkArgument(nElements() == 1);
     }
 
+    public BoxType(int boxType) {
+        this();
+        setBoxType(boxType);
+    }
+
     public int getBoxType() {
         return getElement(0);
     }
