@@ -11,13 +11,11 @@ import io.txcl.mingds.record.Width;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
+import io.txcl.mingds.support.SingleKeyMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import io.txcl.mingds.support.SingleKeyMap;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class TextElement extends AbstractElement {
@@ -92,7 +90,7 @@ public class TextElement extends AbstractElement {
     @Override
     public Map<Integer, List<List<Vector2D>>> getPolygons() {
         int size;
-        if(width == null){
+        if (width == null) {
             size = 1;
         } else {
             size = width.getWidth();
