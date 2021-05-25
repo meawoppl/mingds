@@ -4,8 +4,6 @@ import io.txcl.mingds.compose.StransRecs;
 import io.txcl.mingds.record.*;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AbstractRefElement extends AbstractElement {
     private final String name;

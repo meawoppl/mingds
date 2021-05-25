@@ -2,17 +2,15 @@ package io.txcl.mingds.compose;
 
 import io.txcl.mingds.record.Angle;
 import io.txcl.mingds.record.Mag;
-import io.txcl.mingds.record.SName;
 import io.txcl.mingds.record.STrans;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class StransRecs {
-    public static GDSStream forParameters(double magnification, double angle){
-        if(magnification == 1 && angle == 0){
+    public static GDSStream forParameters(double magnification, double angle) {
+        if (magnification == 1 && angle == 0) {
             return GDSStream.empty();
         }
 
@@ -28,6 +26,5 @@ public class StransRecs {
         }
 
         return GDSStream.of(recs);
-
     }
 }

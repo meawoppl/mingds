@@ -64,7 +64,7 @@ public class SRefElement extends AbstractRefElement {
 
     @Override
     protected GDSStream getContents() {
-        XY xy = new XY(List.of(position));
+        XY xy = new XY(position);
         return getRefComponents().concat(xy);
     }
 
