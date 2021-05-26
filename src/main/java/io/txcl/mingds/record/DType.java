@@ -1,6 +1,7 @@
 package io.txcl.mingds.record;
 
 import com.google.common.base.Preconditions;
+import io.txcl.mingds.format.ByteMunging;
 import io.txcl.mingds.record.base.RecordType;
 import io.txcl.mingds.record.base.ShortRecord;
 
@@ -27,6 +28,6 @@ public class DType extends ShortRecord {
     public void setDataType(int value) {
         Preconditions.checkArgument(value >= 0);
         Preconditions.checkArgument(value <= 255);
-        setElement(0, (short) value);
+        setElement(0, ByteMunging.requireShort(value));
     }
 }

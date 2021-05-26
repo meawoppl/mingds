@@ -1,6 +1,7 @@
 package io.txcl.mingds.record;
 
 import com.google.common.base.Preconditions;
+import io.txcl.mingds.format.ByteMunging;
 import io.txcl.mingds.record.base.RecordType;
 import io.txcl.mingds.record.base.ShortRecord;
 
@@ -22,7 +23,6 @@ public class Header extends ShortRecord {
     }
 
     public void setVersion(int version) {
-        Preconditions.checkArgument(version < Short.MAX_VALUE);
-        setElement(0, (short) version);
+        setElement(0, ByteMunging.requireShort(version));
     }
 }

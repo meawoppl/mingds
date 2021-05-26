@@ -13,6 +13,10 @@ public class XY extends IntRecord {
     public static final int MAX_XYS = 8191;
     public static final AtomicBoolean oversizeWarning = new AtomicBoolean(false);
 
+    public XY(Vector2D point) {
+        this(List.of(point));
+    }
+
     public XY(List<Vector2D> points) {
         super(new byte[4 * 2 * points.size()], RecordType.XY);
         // Check maximum point count

@@ -5,7 +5,9 @@ import io.txcl.mingds.record.Boundary;
 import io.txcl.mingds.record.DType;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.stream.GDSStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class BoundaryElement extends AbstractElement {
@@ -28,7 +30,9 @@ public class BoundaryElement extends AbstractElement {
     }
 
     @Override
-    public List<List<Vector2D>> getPolygons() {
-        return List.of(points);
+    public Map<Integer, List<List<Vector2D>>> getPolygons() {
+        Map<Integer, List<List<Vector2D>>> map = new HashMap<>();
+        map.put(getLayer(), List.of(points));
+        return map;
     }
 }

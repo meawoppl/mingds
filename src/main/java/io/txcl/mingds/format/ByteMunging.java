@@ -12,6 +12,12 @@ import java.nio.charset.StandardCharsets;
 public class ByteMunging {
     private ByteMunging() {}
 
+    public static short requireShort(int shortable) {
+        Preconditions.checkArgument(shortable <= Short.MAX_VALUE);
+        Preconditions.checkArgument(shortable >= Short.MIN_VALUE);
+        return (short) shortable;
+    }
+
     public static byte[] fromJavaString(String data) {
         int outputLength = data.length() + (data.length() % 2 == 0 ? 0 : 1);
         return fromJavaString(data, outputLength);

@@ -1,5 +1,6 @@
 package io.txcl.mingds.compose.structure;
 
+import io.txcl.mingds.interfaces.Renderable;
 import io.txcl.mingds.record.ARef;
 import io.txcl.mingds.record.ElFlags;
 import io.txcl.mingds.record.EndEl;
@@ -7,11 +8,15 @@ import io.txcl.mingds.record.Layer;
 import io.txcl.mingds.record.Plex;
 import io.txcl.mingds.record.SRef;
 import io.txcl.mingds.record.base.GDSIIRecord;
+import io.txcl.mingds.render.Box;
 import io.txcl.mingds.stream.GDSStream;
+import io.txcl.mingds.support.ExtentCollector;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
-public abstract class AbstractElement {
+public abstract class AbstractElement implements Renderable {
     private final GDSIIRecord<?> structureType;
     private ElFlags elflags;
     private Plex plex;
@@ -23,7 +28,7 @@ public abstract class AbstractElement {
 
     protected abstract GDSStream getContents();
 
-    public abstract List<List<Vector2D>> getPolygons();
+    public abstract Map<Integer, List<List<Vector2D>>> getPolygons();
 
     /**
      * Get a stream of records that represent this Structural instance
@@ -48,6 +53,17 @@ public abstract class AbstractElement {
 
         return stream.concat(getContents()).concat(new EndEl());
     };
+
+    public Box getExtents() {
+        return getPolygons().values().stream()
+                .flatMap(Collection::stream)
+                .flatMap(Collection::stream)
+                .collect(ExtentCollector.toBox());
+    }
+
+    public int getLayer() {
+        return layer;
+    }
 
     public void setLayer(int layer) {
         this.layer = layer;

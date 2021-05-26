@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import io.txcl.mingds.record.*;
 import io.txcl.mingds.stream.GDSStream;
 import io.txcl.mingds.support.PathDecoder;
+import io.txcl.mingds.support.SingleKeyMap;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
@@ -34,7 +35,7 @@ public class PathElement extends AbstractElement {
     }
 
     @Override
-    public List<List<Vector2D>> getPolygons() {
+    public Map<Integer, List<List<Vector2D>>> getPolygons() {
         // TODO(meawoppl) foist to static
         Map<Integer, Integer> gdsPathTypeToAwtCapType = new HashMap<>();
         gdsPathTypeToAwtCapType.put(0, BasicStroke.CAP_BUTT);
@@ -57,6 +58,6 @@ public class PathElement extends AbstractElement {
         PathIterator pathIterator =
                 outlineShape.getPathIterator(new AffineTransform(1, 0, 0, -1, 0, 0));
 
-        return PathDecoder.processPathIterator(pathIterator);
+        return SingleKeyMap.create(getLayer(), PathDecoder.processPathIterator(pathIterator));
     }
 }

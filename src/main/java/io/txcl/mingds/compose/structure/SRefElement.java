@@ -6,7 +6,9 @@ import io.txcl.mingds.stream.GDSStream;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
@@ -62,7 +64,7 @@ public class SRefElement extends AbstractRefElement {
 
     @Override
     protected GDSStream getContents() {
-        XY xy = new XY(List.of(position));
+        XY xy = new XY(position);
         return getRefComponents().concat(xy);
     }
 
@@ -83,17 +85,30 @@ public class SRefElement extends AbstractRefElement {
     }
 
     @Override
-    public List<List<Vector2D>> getPolygons() {
+    public Map<Integer, List<List<Vector2D>>> getPolygons() {
         if (structure == null) {
             System.err.println("WARNING: Tried to render unreferenced structure. Skipping");
             // TODO(meawoppl) maybe render a warning anchor here?
-            return new ArrayList<>();
+            return new HashMap<>();
         }
 
-        return structure.getElements().stream()
-                .flatMap(element -> element.getPolygons().stream())
-                .map(this::transformPolygon)
-                .collect(Collectors.toList());
+        Map<Integer, List<List<Vector2D>>> polygons = new HashMap<>();
+
+        structure
+                .getElements()
+                .forEach(
+                        element -> {
+                            element.getPolygons()
+                                    .forEach(
+                                            (layer, polys) -> {
+                                                if (!polygons.containsKey(layer)) {
+                                                    polygons.put(layer, new ArrayList<>());
+                                                }
+                                                polygons.get(layer).addAll(polys);
+                                            });
+                        });
+
+        return polygons;
     }
 
     private List<Vector2D> transformPolygon(List<Vector2D> polygon) {

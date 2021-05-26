@@ -1,9 +1,11 @@
 package io.txcl.mingds.render;
 
 import com.google.common.base.Preconditions;
-import io.txcl.mingds.compose.structure.AbstractElement;
+import io.txcl.mingds.interfaces.Renderable;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
+import io.txcl.mingds.support.ExtentCollector;
+import io.txcl.mingds.support.KellyColors;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -12,7 +14,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -47,15 +48,17 @@ public class Render {
                 });
     }
 
-    public static Render forElement(AbstractElement element, int size) {
-        List<Vector2D> pts =
-                element.getPolygons().stream()
-                        .flatMap(Collection::stream)
-                        .collect(Collectors.toList());
-
-        Box box = Box.covering(pts).paddedToSquare().paddedPercent(0.1);
-        final Render render = new Render(box, size);
-        element.getPolygons().forEach(poly -> render.fillSegments(poly, Color.BLUE));
+    public static Render forElement(Renderable element, int size) {
+        Box box = element.getExtents().paddedToSquare().paddedPercent(0.1);
+        Render render = new Render(box, size);
+        element.getPolygons()
+                .entrySet()
+                .forEach(
+                        entry -> {
+                            Color color = KellyColors.KELLY_COLORS.get(entry.getKey());
+                            List<List<Vector2D>> polygons = entry.getValue();
+                            polygons.forEach((poly) -> render.fillSegments(poly, color));
+                        });
 
         return render;
     }
@@ -66,10 +69,7 @@ public class Render {
                         .filter(r -> r instanceof XY)
                         .map(r -> (XY) r)
                         .collect(Collectors.toList());
-        List<Vector2D> xyVecs = xyRecs.stream().flatMap(XY::getXYs).collect(Collectors.toList());
-
-        final Box box = Box.covering(xyVecs);
-
+        final Box box = xyRecs.stream().flatMap(XY::getXYs).collect(ExtentCollector.toBox());
         Render render = new Render(box, size);
 
         xyRecs.forEach(

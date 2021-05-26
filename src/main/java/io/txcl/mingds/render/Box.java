@@ -3,6 +3,7 @@ package io.txcl.mingds.render;
 import com.google.common.base.Preconditions;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.Objects;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class Box {
@@ -67,5 +68,18 @@ public class Box {
 
     public Vector2D getUpper() {
         return upper;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Box box = (Box) o;
+        return lower.equals(box.lower) && upper.equals(box.upper);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lower, upper);
     }
 }

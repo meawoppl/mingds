@@ -1,6 +1,7 @@
 package io.txcl.mingds.record;
 
 import com.google.common.base.Preconditions;
+import io.txcl.mingds.format.ByteMunging;
 import io.txcl.mingds.record.base.RecordType;
 import io.txcl.mingds.record.base.ShortRecord;
 
@@ -11,9 +12,7 @@ public class Layer extends ShortRecord {
 
     public Layer(int layer) {
         this();
-        Preconditions.checkArgument(layer <= Short.MAX_VALUE);
-        Preconditions.checkArgument(layer >= Short.MIN_VALUE);
-        setLayer((short) layer);
+        setLayer(ByteMunging.requireShort(layer));
     }
 
     public Layer(byte[] bytes) {

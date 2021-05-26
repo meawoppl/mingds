@@ -7,6 +7,7 @@ import io.txcl.mingds.validate.RecordValidator;
 import io.txcl.mingds.validate.ValidationException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
@@ -39,7 +40,9 @@ class PathElementTest {
         // Round caps
         {
             final PathElement path = new PathElement(0, 2, 5, points);
-            path.getPolygons().forEach((poly) -> render.fillSegments(poly, Color.BLUE));
+            path.getPolygons().values().stream()
+                    .flatMap(Collection::stream)
+                    .forEach((poly) -> render.fillSegments(poly, Color.BLUE));
             render.strokeSegments(points, Color.RED);
         }
 
@@ -47,7 +50,9 @@ class PathElementTest {
         {
             final List<Vector2D> moved = shifted(points, new Vector2D(0, 25));
             final PathElement path = new PathElement(0, 1, 5, moved);
-            path.getPolygons().forEach((poly) -> render.fillSegments(poly, Color.BLUE));
+            path.getPolygons().values().stream()
+                    .flatMap(Collection::stream)
+                    .forEach((poly) -> render.fillSegments(poly, Color.BLUE));
             render.strokeSegments(moved, Color.RED);
         }
 
@@ -55,7 +60,9 @@ class PathElementTest {
         {
             final List<Vector2D> moved = shifted(points, new Vector2D(0, 50));
             final PathElement path = new PathElement(0, 0, 5, moved);
-            path.getPolygons().forEach((poly) -> render.fillSegments(poly, Color.BLUE));
+            path.getPolygons().values().stream()
+                    .flatMap(Collection::stream)
+                    .forEach((poly) -> render.fillSegments(poly, Color.BLUE));
             render.strokeSegments(moved, Color.RED);
         }
 
