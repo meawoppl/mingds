@@ -1,6 +1,6 @@
 package io.txcl.mingds.compose.structure;
 
-import io.txcl.mingds.compose.StransRecs;
+import io.txcl.mingds.compose.StransHelp;
 import io.txcl.mingds.compose.TextSupport;
 import io.txcl.mingds.record.PathType;
 import io.txcl.mingds.record.Presentation;
@@ -78,8 +78,8 @@ public class TextElement extends AbstractElement {
             records.add(width);
         }
 
-        records.addAll(
-                StransRecs.forParameters(magnification, rotation).collect(Collectors.toList()));
+        StransHelp stransHelp = new StransHelp(magnification, rotation);
+        records.addAll(stransHelp.stream().collect(Collectors.toList()));
 
         records.add(new XY(position));
         records.add(new StringRecord(string));

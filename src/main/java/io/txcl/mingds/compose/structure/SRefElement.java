@@ -1,5 +1,6 @@
 package io.txcl.mingds.compose.structure;
 
+import io.txcl.mingds.compose.StransHelp;
 import io.txcl.mingds.record.SRef;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.stream.GDSStream;
@@ -68,22 +69,6 @@ public class SRefElement extends AbstractRefElement {
         return getRefComponents().concat(xy);
     }
 
-    public AffineTransform getTransform() {
-        final AffineTransform base = new AffineTransform();
-        final AffineTransform mag =
-                AffineTransform.getScaleInstance(getMagnification(), getMagnification());
-        final AffineTransform rot =
-                AffineTransform.getRotateInstance(getAngle() * Math.PI / 180, 0, 0);
-        final AffineTransform trn =
-                AffineTransform.getTranslateInstance(position.getX(), position.getY());
-
-        base.preConcatenate(mag);
-        base.preConcatenate(rot);
-        base.preConcatenate(trn);
-
-        return base;
-    }
-
     @Override
     public Map<Integer, List<List<Vector2D>>> getPolygons() {
         if (structure == null) {
@@ -112,7 +97,8 @@ public class SRefElement extends AbstractRefElement {
     }
 
     private List<Vector2D> transformPolygon(List<Vector2D> polygon) {
-        AffineTransform base = getTransform();
+        StransHelp stransHelp = new StransHelp(this.getMagnification(), getAngle(), Vector2D.ZERO);
+        AffineTransform base = stransHelp.getTransform();
         return polygon.stream()
                 .map(
                         xy -> {

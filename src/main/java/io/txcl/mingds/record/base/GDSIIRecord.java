@@ -8,6 +8,7 @@ import io.txcl.mingds.record.BgnStr;
 import io.txcl.mingds.record.Boundary;
 import io.txcl.mingds.record.Box;
 import io.txcl.mingds.record.BoxType;
+import io.txcl.mingds.record.ColRow;
 import io.txcl.mingds.record.DType;
 import io.txcl.mingds.record.ElFlags;
 import io.txcl.mingds.record.EndEl;
@@ -153,6 +154,8 @@ public abstract class GDSIIRecord<E> extends CommonToken {
                 return new Box(recordRaw);
             case BOXTYPE:
                 return new BoxType(recordRaw);
+            case COLROW:
+                return new ColRow(recordRaw);
             case DATATYPE:
                 return new DType(recordRaw);
             case ELFLAGS:

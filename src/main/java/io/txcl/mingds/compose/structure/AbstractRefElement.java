@@ -1,6 +1,6 @@
 package io.txcl.mingds.compose.structure;
 
-import io.txcl.mingds.compose.StransRecs;
+import io.txcl.mingds.compose.StransHelp;
 import io.txcl.mingds.record.*;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
@@ -40,6 +40,7 @@ public abstract class AbstractRefElement extends AbstractElement {
     }
 
     public GDSStream getRefComponents() {
-        return GDSStream.of(new SName(name)).concat(StransRecs.forParameters(magnification, angle));
+        StransHelp strans = new StransHelp(magnification, angle);
+        return GDSStream.of(new SName(name)).concat(strans.stream());
     }
 }
