@@ -1,9 +1,9 @@
 package io.txcl.mingds.validate;
 
 import io.txcl.mingds.GDSTestFiles;
-import io.txcl.mingds.compose.GDSBuilder;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
+import io.txcl.mingds.tree.Library;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,13 +27,13 @@ public class KLayoutValidatorTest extends GDSTestFiles {
 
     @Test
     public void testMinimalStream() throws ValidationException {
-        new KLayoutValidator().validate(GDSBuilder.empty().stream());
+        new KLayoutValidator().validate(Library.empty().stream());
     }
 
     @Test
     public void testMinimalFile(@TempDir Path path) throws ValidationException, IOException {
         Path gds = path.resolve("temp.gds");
-        GDSStream.to(gds, GDSBuilder.empty().stream());
+        GDSStream.to(gds, Library.empty().stream());
         new KLayoutValidator().validate(gds);
     }
 

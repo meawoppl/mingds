@@ -1,4 +1,4 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.geom;
 
 import io.txcl.mingds.record.Angle;
 import io.txcl.mingds.record.Mag;

@@ -1,5 +1,7 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.tree;
 
+import io.txcl.mingds.geom.PolygonStream;
+import io.txcl.mingds.geom.TextSupport;
 import io.txcl.mingds.render.Render;
 import io.txcl.mingds.stream.GDSStream;
 import java.awt.Color;

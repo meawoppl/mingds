@@ -1,6 +1,6 @@
-package io.txcl.mingds.compose.structure;
+package io.txcl.mingds.tree.element;
 
-import io.txcl.mingds.compose.StransRecs;
+import io.txcl.mingds.geom.StransRecs;
 import io.txcl.mingds.record.*;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;

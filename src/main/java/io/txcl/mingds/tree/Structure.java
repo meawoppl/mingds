@@ -1,4 +1,4 @@
-package io.txcl.mingds.compose.structure;
+package io.txcl.mingds.tree;
 
 import io.txcl.mingds.record.BgnStr;
 import io.txcl.mingds.record.EndStr;
@@ -6,6 +6,7 @@ import io.txcl.mingds.record.StrName;
 import io.txcl.mingds.render.Box;
 import io.txcl.mingds.stream.GDSStream;
 import io.txcl.mingds.support.ExtentCollector;
+import io.txcl.mingds.tree.element.AbstractElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

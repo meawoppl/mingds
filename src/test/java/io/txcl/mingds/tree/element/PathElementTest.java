@@ -1,4 +1,4 @@
-package io.txcl.mingds.compose.structure;
+package io.txcl.mingds.tree.element;
 
 import com.google.common.collect.Lists;
 import io.txcl.mingds.render.Box;

@@ -1,4 +1,4 @@
-package io.txcl.mingds.compose.structure;
+package io.txcl.mingds.tree.element;
 
 import io.txcl.mingds.record.BoxType;
 import io.txcl.mingds.record.XY;

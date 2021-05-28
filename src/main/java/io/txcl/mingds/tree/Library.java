@@ -1,6 +1,5 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.tree;
 
-import io.txcl.mingds.compose.structure.Structure;
 import io.txcl.mingds.record.BgnLib;
 import io.txcl.mingds.record.EndLib;
 import io.txcl.mingds.record.Header;
@@ -10,17 +9,17 @@ import io.txcl.mingds.stream.GDSStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GDSBuilder {
+public class Library {
     private final LibName libName;
     private final List<Structure> structureStreams;
 
-    public GDSBuilder(String libname) {
+    public Library(String libname) {
         this.libName = new LibName(libname);
         this.structureStreams = new ArrayList<>();
     }
 
-    public static GDSBuilder empty() {
-        return new GDSBuilder(LibName.DEFAULT_NAME);
+    public static Library empty() {
+        return new Library(LibName.DEFAULT_NAME);
     }
 
     public void addStructure(Structure structureStream) {

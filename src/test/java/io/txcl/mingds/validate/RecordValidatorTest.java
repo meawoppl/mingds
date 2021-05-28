@@ -1,11 +1,11 @@
 package io.txcl.mingds.validate;
 
 import io.txcl.mingds.GDSTestFiles;
-import io.txcl.mingds.compose.GDSBuilder;
 import io.txcl.mingds.record.PropAttr;
 import io.txcl.mingds.record.PropValue;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
+import io.txcl.mingds.tree.Library;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Collections;
@@ -38,13 +38,13 @@ public class RecordValidatorTest extends GDSTestFiles {
 
     @Test
     public void testMinimalGDSStream() throws ValidationException {
-        new RecordValidator().validate(GDSBuilder.empty().stream());
+        new RecordValidator().validate(Library.empty().stream());
     }
 
     @Test
     public void testMinimalGDSFile(@TempDir Path path) throws ValidationException, IOException {
         Path gds = path.resolve("minimal.gds");
-        GDSStream.to(gds, GDSBuilder.empty().stream());
+        GDSStream.to(gds, Library.empty().stream());
         new RecordValidator().validate(gds);
     }
 
