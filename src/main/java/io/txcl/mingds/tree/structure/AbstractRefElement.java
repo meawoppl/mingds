@@ -1,6 +1,6 @@
-package io.txcl.mingds.compose.structure;
+package io.txcl.mingds.tree.structure;
 
-import io.txcl.mingds.compose.StransHelp;
+import io.txcl.mingds.tree.StransHelp;
 import io.txcl.mingds.record.*;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;

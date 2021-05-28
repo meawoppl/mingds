@@ -1,4 +1,4 @@
-package io.txcl.mingds.compose.structure;
+package io.txcl.mingds.tree.structure;
 
 import io.txcl.mingds.validate.RecordValidator;
 import io.txcl.mingds.validate.ValidationException;

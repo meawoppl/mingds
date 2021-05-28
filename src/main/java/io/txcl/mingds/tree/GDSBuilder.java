@@ -1,6 +1,6 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.tree;
 
-import io.txcl.mingds.compose.structure.Structure;
+import io.txcl.mingds.tree.structure.Structure;
 import io.txcl.mingds.record.BgnLib;
 import io.txcl.mingds.record.EndLib;
 import io.txcl.mingds.record.Header;

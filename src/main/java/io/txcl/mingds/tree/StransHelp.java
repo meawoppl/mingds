@@ -1,4 +1,4 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.tree;
 
 import io.txcl.mingds.record.Angle;
 import io.txcl.mingds.record.Mag;
@@ -9,7 +9,6 @@ import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

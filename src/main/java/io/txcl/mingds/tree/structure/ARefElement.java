@@ -1,7 +1,6 @@
-package io.txcl.mingds.compose.structure;
+package io.txcl.mingds.tree.structure;
 
 import io.txcl.mingds.record.ARef;
-import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 

@@ -1,6 +1,5 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.geom;
 
-import com.google.common.collect.ImmutableMap;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 import java.util.ArrayList;
@@ -48,4 +47,7 @@ public class Region {
         return newMap;
     }
 
+    public Map<Integer, List<List<Vector2D>>> getLevelsToPolys() {
+        return levelsToPolys;
+    }
 }

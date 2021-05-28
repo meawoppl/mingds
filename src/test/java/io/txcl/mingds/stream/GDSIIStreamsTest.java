@@ -1,7 +1,7 @@
 package io.txcl.mingds.stream;
 
 import io.txcl.mingds.GDSTestFiles;
-import io.txcl.mingds.compose.GDSBuilder;
+import io.txcl.mingds.tree.GDSBuilder;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.record.base.RecordType;

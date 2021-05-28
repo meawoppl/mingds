@@ -1,4 +1,4 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.geom;
 
 import com.google.common.collect.Lists;
 import io.txcl.mingds.stream.GDSStream;
@@ -11,6 +11,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class TextSupport {

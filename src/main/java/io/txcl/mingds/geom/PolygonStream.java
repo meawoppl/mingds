@@ -1,7 +1,8 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.geom;
 
-import io.txcl.mingds.compose.structure.BoundaryElement;
-import io.txcl.mingds.compose.structure.Structure;
+import io.txcl.mingds.tree.GDSBuilder;
+import io.txcl.mingds.tree.structure.BoundaryElement;
+import io.txcl.mingds.tree.structure.Structure;
 import io.txcl.mingds.stream.GDSStream;
 import java.util.List;
 import java.util.stream.Stream;

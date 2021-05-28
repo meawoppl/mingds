@@ -1,7 +1,7 @@
 package io.txcl.mingds.validate;
 
 import io.txcl.mingds.GDSTestFiles;
-import io.txcl.mingds.compose.GDSBuilder;
+import io.txcl.mingds.tree.GDSBuilder;
 import io.txcl.mingds.record.PropAttr;
 import io.txcl.mingds.record.PropValue;
 import io.txcl.mingds.record.base.GDSIIRecord;

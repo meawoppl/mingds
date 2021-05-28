@@ -1,7 +1,7 @@
-package io.txcl.mingds.compose.structure;
+package io.txcl.mingds.tree.structure;
 
-import io.txcl.mingds.compose.StransHelp;
-import io.txcl.mingds.compose.TextSupport;
+import io.txcl.mingds.tree.StransHelp;
+import io.txcl.mingds.geom.TextSupport;
 import io.txcl.mingds.record.PathType;
 import io.txcl.mingds.record.Presentation;
 import io.txcl.mingds.record.StringRecord;

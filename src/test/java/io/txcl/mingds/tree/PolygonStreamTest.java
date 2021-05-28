@@ -1,6 +1,7 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.tree;
 
 import com.google.common.collect.Lists;
+import io.txcl.mingds.geom.PolygonStream;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
 import io.txcl.mingds.validate.RecordValidator;

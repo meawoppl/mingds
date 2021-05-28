@@ -1,4 +1,4 @@
-package io.txcl.mingds.compose;
+package io.txcl.mingds.tree;
 
 import io.txcl.mingds.stream.GDSStream;
 import io.txcl.mingds.validate.KLayoutValidator;

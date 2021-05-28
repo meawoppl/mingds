@@ -1,6 +1,4 @@
-package io.txcl.mingds.compose.structure;
-
-import static org.junit.jupiter.api.Assertions.*;
+package io.txcl.mingds.tree.structure;
 
 import io.txcl.mingds.render.Box;
 import io.txcl.mingds.render.Render;
