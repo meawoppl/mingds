@@ -1,9 +1,10 @@
-package io.txcl.mingds.tree.structure;
+package io.txcl.mingds.tree.element;
 
-import io.txcl.mingds.tree.StransHelp;
 import io.txcl.mingds.record.SRef;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.stream.GDSStream;
+import io.txcl.mingds.tree.StransHelp;
+import io.txcl.mingds.tree.Structure;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

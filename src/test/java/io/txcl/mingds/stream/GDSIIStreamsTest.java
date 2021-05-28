@@ -1,11 +1,11 @@
 package io.txcl.mingds.stream;
 
 import io.txcl.mingds.GDSTestFiles;
-import io.txcl.mingds.tree.GDSBuilder;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.record.base.RecordType;
 import io.txcl.mingds.render.Render;
+import io.txcl.mingds.tree.Library;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.List;
@@ -37,7 +37,7 @@ public class GDSIIStreamsTest extends GDSTestFiles {
     @Test
     public void testStreamWriting(@TempDir Path path) throws Exception {
         Path gdsPath = path.resolve("tempout.gds");
-        GDSStream.to(gdsPath, GDSBuilder.empty().stream());
+        GDSStream.to(gdsPath, Library.empty().stream());
     }
 
     @ParameterizedTest

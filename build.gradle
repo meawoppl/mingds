@@ -33,6 +33,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.antlr/antlr4-runtime
     antlr 'org.antlr:antlr4:4.7.1'
     implementation "org.antlr:antlr4-intellij-adaptor:0.1"
+
+    // argparse
+    api 'net.sourceforge.argparse4j:argparse4j:0.2.0'
 }
 
 // Make tests run via the CLI make some noise

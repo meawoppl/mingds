@@ -5,13 +5,12 @@ import io.txcl.mingds.record.Mag;
 import io.txcl.mingds.record.STrans;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
-
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class StransHelp {
     private final double magnification;
@@ -33,10 +32,8 @@ public class StransHelp {
 
     public AffineTransform getTransform() {
         final AffineTransform base = new AffineTransform();
-        final AffineTransform mag =
-                AffineTransform.getScaleInstance(magnification, magnification);
-        final AffineTransform rot =
-                AffineTransform.getRotateInstance(angle * Math.PI / 180, 0, 0);
+        final AffineTransform mag = AffineTransform.getScaleInstance(magnification, magnification);
+        final AffineTransform rot = AffineTransform.getRotateInstance(angle * Math.PI / 180, 0, 0);
         final AffineTransform trn =
                 AffineTransform.getTranslateInstance(shift.getX(), shift.getY());
 
@@ -56,7 +53,7 @@ public class StransHelp {
         return polygon.stream().map(this::transformPoint).collect(Collectors.toList());
     }
 
-    public Vector2D transformPoint(Vector2D xy){
+    public Vector2D transformPoint(Vector2D xy) {
         Point2D.Double pt = new Point2D.Double(xy.getX(), xy.getY());
         Point2D ptp = transform.transform(pt, null);
         return new Vector2D(ptp.getX(), ptp.getY());

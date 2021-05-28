@@ -1,11 +1,10 @@
-package io.txcl.mingds.tree.structure;
+package io.txcl.mingds.tree.element;
 
 import io.txcl.mingds.record.ARef;
 import io.txcl.mingds.stream.GDSStream;
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
-
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class ARefElement extends AbstractRefElement {
     public ARefElement(String name) {

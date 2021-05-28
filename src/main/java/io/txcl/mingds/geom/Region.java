@@ -1,13 +1,12 @@
 package io.txcl.mingds.geom;
 
-import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class Region {
     private final Map<Integer, List<List<Vector2D>>> levelsToPolys;
@@ -16,28 +15,29 @@ public class Region {
         this.levelsToPolys = levelsToPolys;
     }
 
-    public Region(){
+    public Region() {
         this(new HashMap<>());
     }
 
-    public Region add(Region other){
+    public Region add(Region other) {
         return new Region(mergeMaps(this.levelsToPolys, other.levelsToPolys));
     }
 
-    private static Map<Integer, List<List<Vector2D>>> mergeMaps(Map<Integer, List<List<Vector2D>>> map1, Map<Integer, List<List<Vector2D>>> map2){
+    private static Map<Integer, List<List<Vector2D>>> mergeMaps(
+            Map<Integer, List<List<Vector2D>>> map1, Map<Integer, List<List<Vector2D>>> map2) {
         Set<Integer> levels = new HashSet<>();
         levels.addAll(map1.keySet());
         levels.addAll(map2.keySet());
 
         Map<Integer, List<List<Vector2D>>> newMap = new HashMap<>();
-        for(Integer level: levels){
+        for (Integer level : levels) {
             List<List<Vector2D>> polys = new ArrayList<>();
 
-            if(map1.containsKey(level)){
+            if (map1.containsKey(level)) {
                 polys.addAll(map1.get(level));
             }
 
-            if(map2.containsKey(level)){
+            if (map2.containsKey(level)) {
                 polys.addAll(map2.get(level));
             }
 

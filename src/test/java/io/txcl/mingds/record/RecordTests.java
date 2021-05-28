@@ -13,6 +13,6 @@ public class RecordTests {
 
     @Test
     public void testFindsRecords() {
-        Assertions.assertEquals(33, findAllConcreteRecordClasses().count());
+        Assertions.assertEquals(34, findAllConcreteRecordClasses().count());
     }
 }

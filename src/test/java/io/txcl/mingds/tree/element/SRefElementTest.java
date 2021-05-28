@@ -1,7 +1,8 @@
-package io.txcl.mingds.tree.structure;
+package io.txcl.mingds.tree.element;
 
 import io.txcl.mingds.render.Box;
 import io.txcl.mingds.render.Render;
+import io.txcl.mingds.tree.Structure;
 import io.txcl.mingds.validate.RecordValidator;
 import io.txcl.mingds.validate.ValidationException;
 import java.awt.*;

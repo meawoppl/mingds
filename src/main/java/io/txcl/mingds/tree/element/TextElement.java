@@ -1,6 +1,5 @@
-package io.txcl.mingds.tree.structure;
+package io.txcl.mingds.tree.element;
 
-import io.txcl.mingds.tree.StransHelp;
 import io.txcl.mingds.geom.TextSupport;
 import io.txcl.mingds.record.PathType;
 import io.txcl.mingds.record.Presentation;
@@ -12,6 +11,7 @@ import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
 import io.txcl.mingds.support.SingleKeyMap;
+import io.txcl.mingds.tree.StransHelp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -16,7 +16,6 @@ public class GDSTokenSource implements TokenSource {
     private int offset;
 
     public GDSTokenSource(GDSStream recordStream) {
-
         this.recordIterator = recordStream.iterator();
         this.offset = 0;
     }

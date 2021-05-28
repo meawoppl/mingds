@@ -8,10 +8,10 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-public class GDSBuilderTest {
+public class LibraryTest {
     @Test
     public void testBuilderMinimal(@TempDir Path td) throws IOException, ValidationException {
-        GDSStream stream = new GDSBuilder("foo-test-db").stream();
+        GDSStream stream = new Library("foo-test-db").stream();
 
         Path gdsTemp = td.resolve("foo.gds");
         GDSStream.to(gdsTemp, stream);

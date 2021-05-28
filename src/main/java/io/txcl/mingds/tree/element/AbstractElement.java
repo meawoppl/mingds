@@ -1,4 +1,4 @@
-package io.txcl.mingds.tree.structure;
+package io.txcl.mingds.tree.element;
 
 import io.txcl.mingds.interfaces.Renderable;
 import io.txcl.mingds.record.ARef;
@@ -78,7 +78,7 @@ public abstract class AbstractElement implements Renderable {
         this.plex = plex;
     }
 
-    public String getElementName(){
+    public String getElementName() {
         return this.getClass().getSimpleName();
     }
 }
