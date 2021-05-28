@@ -1,5 +1,6 @@
 package io.txcl.mingds.tree;
 
+import io.txcl.mingds.GDSTestFiles;
 import io.txcl.mingds.stream.GDSStream;
 import io.txcl.mingds.validate.KLayoutValidator;
 import io.txcl.mingds.validate.ValidationException;
@@ -18,4 +19,12 @@ public class LibraryTest {
 
         new KLayoutValidator().validate(gdsTemp);
     }
+
+    @Test
+    public void testFromPath() throws Exception {
+
+        final Path path = GDSTestFiles.getTestPaths().findFirst().get();
+        Library.fromPath(path);
+    }
+
 }

@@ -33,8 +33,14 @@ public class RecordValidator extends ValidatorBase {
 
     @Override
     public void validate(GDSStream stream) throws ValidationException {
+        validateAgainstRuleName(stream, "stream");
+    }
+
+    public static ParserRuleContext getParseTree(GDSStream stream){
         TokenStream tokenStream = toTokenStream(stream);
-        validateAntlrStream(tokenStream);
+        GdsiiParser parser = new GdsiiParser(tokenStream);
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+        return  parser.stream();
     }
 
     public static void validateAgainstRuleName(GDSStream stream, String ruleName)
@@ -43,8 +49,8 @@ public class RecordValidator extends ValidatorBase {
         GdsiiParser parser = new GdsiiParser(tokenStream);
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
+        // NOTE(meawoppl) moderately dirty hack below. Edit with caution
         try {
-            // NOTE(meawoppl) moderately dirty hack below. Edit with caution
             ParserRuleContext ctx =
                     (ParserRuleContext) parser.getClass().getMethod(ruleName).invoke(parser);
             ctx.getChildCount();
@@ -58,16 +64,6 @@ public class RecordValidator extends ValidatorBase {
             if (cause instanceof ParseCancellationException) {
                 throw new ValidationException(cause);
             }
-        }
-    }
-
-    private static void validateAntlrStream(TokenStream stream) throws ValidationException {
-        GdsiiParser parser = new GdsiiParser(stream);
-        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
-        try {
-            GdsiiParser.StreamContext sc = parser.stream();
-        } catch (ParseCancellationException e) {
-            throw new ValidationException(e);
         }
     }
 }

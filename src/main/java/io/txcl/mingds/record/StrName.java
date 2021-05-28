@@ -16,4 +16,9 @@ public class StrName extends AsciiRecord {
     public String getName() {
         return ByteMunging.toJavaString(getBytes());
     }
+
+    @Override
+    public String toString() {
+        return "StrName(" + getName() + ")";
+    }
 }
