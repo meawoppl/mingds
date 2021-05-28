@@ -1,9 +1,9 @@
 package io.txcl.mingds.tree.element;
 
+import io.txcl.mingds.geom.StransRecs;
 import io.txcl.mingds.record.*;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
-import io.txcl.mingds.tree.StransHelp;
 
 public abstract class AbstractRefElement extends AbstractElement {
     private final String name;
@@ -40,7 +40,6 @@ public abstract class AbstractRefElement extends AbstractElement {
     }
 
     public GDSStream getRefComponents() {
-        StransHelp strans = new StransHelp(magnification, angle);
-        return GDSStream.of(new SName(name)).concat(strans.stream());
+        return GDSStream.of(new SName(name)).concat(StransRecs.forParameters(magnification, angle));
     }
 }

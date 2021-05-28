@@ -1,5 +1,6 @@
-package io.txcl.mingds.tree.element;
+package io.txcl.mingds.compose.structure;
 
+import io.txcl.mingds.tree.element.TextElement;
 import io.txcl.mingds.validate.RecordValidator;
 import io.txcl.mingds.validate.ValidationException;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;

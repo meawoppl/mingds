@@ -1,5 +1,6 @@
 package io.txcl.mingds.tree.element;
 
+import io.txcl.mingds.geom.StransRecs;
 import io.txcl.mingds.geom.TextSupport;
 import io.txcl.mingds.record.PathType;
 import io.txcl.mingds.record.Presentation;
@@ -11,7 +12,6 @@ import io.txcl.mingds.record.XY;
 import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.stream.GDSStream;
 import io.txcl.mingds.support.SingleKeyMap;
-import io.txcl.mingds.tree.StransHelp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -78,8 +78,8 @@ public class TextElement extends AbstractElement {
             records.add(width);
         }
 
-        StransHelp stransHelp = new StransHelp(magnification, rotation);
-        records.addAll(stransHelp.stream().collect(Collectors.toList()));
+        records.addAll(
+                StransRecs.forParameters(magnification, rotation).collect(Collectors.toList()));
 
         records.add(new XY(position));
         records.add(new StringRecord(string));
