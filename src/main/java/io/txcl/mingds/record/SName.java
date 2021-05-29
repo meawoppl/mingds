@@ -14,4 +14,8 @@ public class SName extends AsciiRecord {
         super(bytes, RecordType.SNAME);
         Preconditions.checkArgument(bytes.length < 32);
     }
+
+    public String getName() {
+        return ByteMunging.toJavaString(getBytes());
+    }
 }

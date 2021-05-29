@@ -7,6 +7,7 @@ import io.txcl.mingds.validate.antlr.ThrowingErrorListener;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
+import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.UnbufferedTokenStream;
@@ -31,10 +32,24 @@ public class RecordValidator extends ValidatorBase {
         return new UnbufferedTokenStream<>(new GDSTokenSource(gdsStream));
     }
 
+    public static BufferedTokenStream toBufferedTokenStream(GDSStream stream) {
+        return new BufferedTokenStream(new GDSTokenSource(stream));
+    }
+
     @Override
     public void validate(GDSStream stream) throws ValidationException {
+        validateAgainstRuleName(stream, "stream");
+    }
+
+    public static GdsiiParser getParser(GDSStream stream) {
         TokenStream tokenStream = toTokenStream(stream);
-        validateAntlrStream(tokenStream);
+        return new GdsiiParser(tokenStream);
+    }
+
+    public static GdsiiParser.StreamContext getParseTree(GDSStream stream) {
+        GdsiiParser parser = getParser(stream);
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+        return parser.stream();
     }
 
     public static void validateAgainstRuleName(GDSStream stream, String ruleName)
@@ -43,8 +58,8 @@ public class RecordValidator extends ValidatorBase {
         GdsiiParser parser = new GdsiiParser(tokenStream);
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
+        // NOTE(meawoppl) moderately dirty hack below. Edit with caution
         try {
-            // NOTE(meawoppl) moderately dirty hack below. Edit with caution
             ParserRuleContext ctx =
                     (ParserRuleContext) parser.getClass().getMethod(ruleName).invoke(parser);
             ctx.getChildCount();
@@ -58,16 +73,6 @@ public class RecordValidator extends ValidatorBase {
             if (cause instanceof ParseCancellationException) {
                 throw new ValidationException(cause);
             }
-        }
-    }
-
-    private static void validateAntlrStream(TokenStream stream) throws ValidationException {
-        GdsiiParser parser = new GdsiiParser(stream);
-        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
-        try {
-            GdsiiParser.StreamContext sc = parser.stream();
-        } catch (ParseCancellationException e) {
-            throw new ValidationException(e);
         }
     }
 }

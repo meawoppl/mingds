@@ -1,5 +1,6 @@
 package io.txcl.mingds.tree.element;
 
+import io.txcl.mingds.GdsiiParser;
 import io.txcl.mingds.record.SRef;
 import io.txcl.mingds.record.XY;
 import io.txcl.mingds.stream.GDSStream;
@@ -108,5 +109,9 @@ public class SRefElement extends AbstractRefElement {
                             return new Vector2D(ptp.getX(), ptp.getY());
                         })
                 .collect(Collectors.toList());
+    }
+
+    public static SRefElement fromSRefContext(GdsiiParser.SrefElementContext ctx){
+        ctx.
     }
 }

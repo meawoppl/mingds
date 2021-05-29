@@ -1,13 +1,13 @@
 package io.txcl.mingds.tree.element;
 
 import com.google.common.base.Preconditions;
-import io.txcl.mingds.record.Boundary;
-import io.txcl.mingds.record.DType;
-import io.txcl.mingds.record.XY;
+import io.txcl.mingds.GdsiiParser;
+import io.txcl.mingds.record.*;
 import io.txcl.mingds.stream.GDSStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
 
 public class BoundaryElement extends AbstractElement {
@@ -34,5 +34,22 @@ public class BoundaryElement extends AbstractElement {
         Map<Integer, List<List<Vector2D>>> map = new HashMap<>();
         map.put(getLayer(), List.of(points));
         return map;
+    }
+
+    public static BoundaryElement fromRecords(GdsiiParser.BoundaryElementContext records) {
+        XY xyRec = (XY) records.xy().start;
+        Layer layerRec = (Layer) records.layer().start;
+        final BoundaryElement boundaryElement =
+                new BoundaryElement(
+                        xyRec.getXYs().collect(Collectors.toList()), layerRec.getLayer());
+        if(records.elflags() != null){
+            boundaryElement.setElflags((ElFlags) records.elflags().start);
+        }
+
+        if(records.plex() != null){
+            boundaryElement.setPlex((Plex) records.elflags().start);
+        }
+
+        return boundaryElement;
     }
 }
