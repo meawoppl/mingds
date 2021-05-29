@@ -13,18 +13,14 @@ public class LibraryTest {
     @Test
     public void testBuilderMinimal(@TempDir Path td) throws IOException, ValidationException {
         GDSStream stream = new Library("foo-test-db").stream();
-
         Path gdsTemp = td.resolve("foo.gds");
         GDSStream.to(gdsTemp, stream);
-
         new KLayoutValidator().validate(gdsTemp);
     }
 
     @Test
     public void testFromPath() throws Exception {
-
         final Path path = GDSTestFiles.getTestPaths().findFirst().get();
         Library.fromPath(path);
     }
-
 }

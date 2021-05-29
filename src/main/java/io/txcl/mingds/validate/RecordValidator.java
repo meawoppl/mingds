@@ -7,6 +7,7 @@ import io.txcl.mingds.validate.antlr.ThrowingErrorListener;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
+import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.UnbufferedTokenStream;
@@ -31,16 +32,24 @@ public class RecordValidator extends ValidatorBase {
         return new UnbufferedTokenStream<>(new GDSTokenSource(gdsStream));
     }
 
+    public static BufferedTokenStream toBufferedTokenStream(GDSStream stream) {
+        return new BufferedTokenStream(new GDSTokenSource(stream));
+    }
+
     @Override
     public void validate(GDSStream stream) throws ValidationException {
         validateAgainstRuleName(stream, "stream");
     }
 
-    public static ParserRuleContext getParseTree(GDSStream stream){
+    public static GdsiiParser getParser(GDSStream stream) {
         TokenStream tokenStream = toTokenStream(stream);
-        GdsiiParser parser = new GdsiiParser(tokenStream);
+        return new GdsiiParser(tokenStream);
+    }
+
+    public static GdsiiParser.StreamContext getParseTree(GDSStream stream) {
+        GdsiiParser parser = getParser(stream);
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
-        return  parser.stream();
+        return parser.stream();
     }
 
     public static void validateAgainstRuleName(GDSStream stream, String ruleName)

@@ -1,5 +1,6 @@
 package io.txcl.mingds.tree;
 
+import io.txcl.mingds.GdsiiParser;
 import io.txcl.mingds.record.BgnStr;
 import io.txcl.mingds.record.EndStr;
 import io.txcl.mingds.record.StrName;
@@ -44,5 +45,12 @@ public class Structure {
 
     public List<AbstractElement> getElements() {
         return elements;
+    }
+
+    public static Structure fromContext(GdsiiParser.StructureContext ctx){
+        final StrName strname = (StrName) ctx.strname().start;
+        final Structure structure = new Structure(strname.getName());
+        ctx.element().stream().map(AbstractElement::fromStream).forEach(structure::addElement);
+        return structure;
     }
 }

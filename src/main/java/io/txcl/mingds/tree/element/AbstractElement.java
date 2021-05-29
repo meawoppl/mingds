@@ -1,5 +1,6 @@
 package io.txcl.mingds.tree.element;
 
+import io.txcl.mingds.GdsiiParser;
 import io.txcl.mingds.interfaces.Renderable;
 import io.txcl.mingds.record.ARef;
 import io.txcl.mingds.record.ElFlags;
@@ -11,10 +12,13 @@ import io.txcl.mingds.record.base.GDSIIRecord;
 import io.txcl.mingds.render.Box;
 import io.txcl.mingds.stream.GDSStream;
 import io.txcl.mingds.support.ExtentCollector;
+import io.txcl.mingds.validate.RecordValidator;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.math3.geometry.euclidean.twod.Vector2D;
+
+import javax.annotation.Nullable;
 
 public abstract class AbstractElement implements Renderable {
     private final GDSIIRecord<?> structureType;
@@ -70,15 +74,47 @@ public abstract class AbstractElement implements Renderable {
     }
 
     // AFAIK never used...
-    public void setElflags(ElFlags elflags) {
+    public void setElflags(@Nullable ElFlags elflags) {
         this.elflags = elflags;
     }
 
-    public void setPlex(Plex plex) {
+    public void setPlex(@Nullable Plex plex) {
         this.plex = plex;
     }
 
     public String getElementName() {
         return this.getClass().getSimpleName();
+    }
+
+    public static AbstractElement fromStream(GdsiiParser.ElementContext ctx) {
+        if (ctx.arefElement() != null) {
+            return ARefElement.fromRecords(ctx.arefElement());
+        }
+
+        if (ctx.boundaryElement() != null) {
+            return BoundaryElement.fromRecords(ctx.boundaryElement());
+        }
+
+        if (ctx.boxElement() != null) {
+            return BoxElement.fromParseContext(ctx.boxElement());
+        }
+
+        if (ctx.pathElement() != null) {
+            throw new RuntimeException("TODO PATH");
+        }
+
+        if (ctx.nodeElement() != null) {
+            throw new RuntimeException("TODO NODE");
+        }
+
+        if (ctx.srefElement() != null) {
+            throw new RuntimeException("TODO SREF");
+        }
+
+        if (ctx.textElement() != null) {
+            throw new RuntimeException("TODO TEXT");
+        }
+
+        throw new RuntimeException("Unreachable");
     }
 }
